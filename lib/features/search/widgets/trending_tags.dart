@@ -9,13 +9,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class TrendingPosts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GetBuilder<ExploreController>(builder: (controller) {
       List<String> tags = controller.posts.expand((e) => e.tags).toList();
       return Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
+            // margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -64,8 +63,8 @@ class TrendingPosts extends StatelessWidget {
                                   curve: Curves.linear);
                         },
                         child: Container(
-                          height: 120,
-                          width: 120,
+                          height: 100,
+                          width: 100,
                           color: Colors.grey.withOpacity(0.4),
                           margin: EdgeInsets.all(5),
                           child: CustomCachedImageWidget(
@@ -77,7 +76,7 @@ class TrendingPosts extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 1.w),
+                        // margin: EdgeInsets.symmetric(horizontal: 1.w),
                         child: Text("#${tags[index]}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,

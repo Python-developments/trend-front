@@ -78,15 +78,9 @@ class ExploreTagsTab extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(height: 170, child: TrendingPosts()),
-                      SizedBox(
-                        height: 5.h,
-                      ),
+                      Container(height: 150, child: TrendingPosts()),
                       Divider(
                         color: Colors.grey[200],
-                      ),
-                      SizedBox(
-                        height: 5.h,
                       ),
                       ExplorePosts(
                         Container(
