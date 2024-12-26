@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trend/features/search/controllers/explore_controller.dart';
+import 'package:trend/utils/colors.dart';
 import 'package:trend/utils/widgets/custom_cached_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TrendingPosts extends StatelessWidget {
   @override
@@ -20,12 +22,26 @@ class TrendingPosts extends StatelessWidget {
                 Text(
                   "TRENDING TAGS",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.grey),
+                      fontWeight: FontWeight.bold,
+                      color: Color(AppColors.greyExtraDark),
+                      fontSize: 11.sp),
                 ),
-                Text(
-                  "See All",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w300, color: Colors.blue),
+                Row(
+                  children: [
+                    Text(
+                      "See All",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontSize: 11.5.sp),
+                    ),
+                    SvgPicture.asset(
+                      'assets/icons/arrow-right.svg',
+                      height: 15.sp,
+                      // width: 15.sp,
+                      color: Color(AppColors.greyExtraDark),
+                    )
+                  ],
                 ),
               ],
             ),
@@ -61,10 +77,10 @@ class TrendingPosts extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5.w),
+                        margin: EdgeInsets.symmetric(horizontal: 1.w),
                         child: Text("#${tags[index]}",
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.black)),
                       )
                     ],

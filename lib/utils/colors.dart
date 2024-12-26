@@ -4,4 +4,5 @@ class AppColors {
   static const grey = 0xFFE0E0E0;
   static const greyLight = 0xFFFAFAFA;
   static const greyDark = 0xFFBDBDBD;
+  static const greyExtraDark = 0xFF9E9E9E;
 }

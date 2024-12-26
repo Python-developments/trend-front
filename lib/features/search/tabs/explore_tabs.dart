@@ -64,7 +64,7 @@ class ExploreTagsTab extends StatelessWidget {
                                   curve: Curves.linear);
                         },
                         child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 5.w),
+                          margin: EdgeInsets.symmetric(horizontal: 0.w),
                           height: 170.h,
                           width: double
                               .infinity, // Ensures the image takes the full width of the screen
@@ -94,15 +94,12 @@ class ExploreTagsTab extends StatelessWidget {
                           child: Text(
                             "EXPLORE POSTS",
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 11.sp),
                           ),
                         ),
                       )
-                      // TrendingPosts()
-                      //main photo
-                      // tags part
-                      // explore posts
                     ],
                   ),
                 ),
