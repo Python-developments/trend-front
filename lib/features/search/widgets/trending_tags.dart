@@ -34,12 +34,14 @@ class TrendingPosts extends StatelessWidget {
                           color: Colors.blue,
                           fontSize: 11.5.sp),
                     ),
+                    SizedBox(width: 4),
                     SvgPicture.asset(
+                      fit: BoxFit.fitWidth,
                       'assets/icons/arrow-right.svg',
-                      height: 15.sp,
-                      // width: 15.sp,
+                      height: 9.sp,
+                      clipBehavior: Clip.hardEdge,
                       color: Color(AppColors.greyExtraDark),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -84,8 +86,9 @@ class TrendingPosts extends StatelessWidget {
                           // margin: EdgeInsets.symmetric(horizontal: 1.w),
                           child: Text("#${tags[index]}",
                               style: TextStyle(
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
+                                  color: Color(AppColors.black))),
                         )
                       ],
                     ),
