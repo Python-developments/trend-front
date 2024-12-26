@@ -50,39 +50,45 @@ class TrendingPosts extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: tags.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.find<ExploreController>().tag = tags[index];
-                          Get.find<ExploreController>()
-                              .pageController
-                              .animateToPage(1,
-                                  duration: Duration(milliseconds: 100),
-                                  curve: Curves.linear);
-                        },
-                        child: Container(
-                          height: 100,
-                          width: 100,
-                          color: Colors.grey.withOpacity(0.4),
-                          margin: EdgeInsets.all(5),
-                          child: CustomCachedImageWidget(
-                            size: 200,
-                            radius: 0,
-                            imageUrl:
-                                "https://images.unsplash.com/photo-1480563597043-1c877e682fc7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  return Container(
+                    margin: EdgeInsets.only(
+                      right: 5,
+                      top: 5,
+                      bottom: 5,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.find<ExploreController>().tag = tags[index];
+                            Get.find<ExploreController>()
+                                .pageController
+                                .animateToPage(1,
+                                    duration: Duration(milliseconds: 100),
+                                    curve: Curves.linear);
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            color: Colors.grey.withOpacity(0.4),
+                            child: CustomCachedImageWidget(
+                              size: 200,
+                              radius: 0,
+                              imageUrl:
+                                  "https://images.unsplash.com/photo-1480563597043-1c877e682fc7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        // margin: EdgeInsets.symmetric(horizontal: 1.w),
-                        child: Text("#${tags[index]}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                      )
-                    ],
+                        Container(
+                          // margin: EdgeInsets.symmetric(horizontal: 1.w),
+                          child: Text("#${tags[index]}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                        )
+                      ],
+                    ),
                   );
                 }),
           ),
