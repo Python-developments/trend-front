@@ -93,7 +93,7 @@ class ApiRepository {
 
   createPost(String content, String userName, double height, double width,
       MultipartFile file) async {
-    dio.post(ApiEndPoints.login, data: {
+    dio.post(ApiEndPoints.createPost, data: {
       "image": file,
       "content": content,
       "height": height,
