@@ -11,6 +11,7 @@ class ApiEndPoints {
   ////////////////////////////////////////////////////////////////////
   static const String postsPrefix = "posts";
   static const String createPost = "$postsPrefix/create/";
+  static String commentPost(int id) => "$postsPrefix/posts/$id/comments/";
   static String getPost(int id) => "$postsPrefix/$id/";
   static String getPostComments(int id) => "$postsPrefix/$id/comments/";
   static String getPostComment(int id, int commentId) =>
