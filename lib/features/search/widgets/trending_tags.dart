@@ -14,7 +14,7 @@ class TrendingPosts extends StatelessWidget {
       return Column(
         children: [
           Container(
-            // margin: EdgeInsets.symmetric(horizontal: 10.w),
+            margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -23,7 +23,7 @@ class TrendingPosts extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(AppColors.greyExtraDark),
-                      fontSize: 11.sp),
+                      fontSize: 13.sp),
                 ),
                 Row(
                   children: [
@@ -32,7 +32,7 @@ class TrendingPosts extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
-                          fontSize: 11.5.sp),
+                          fontSize: 13.sp),
                     ),
                     SvgPicture.asset(
                       'assets/icons/arrow-right.svg',
@@ -45,6 +45,9 @@ class TrendingPosts extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            height: 5.sp,
+          ),
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -52,7 +55,7 @@ class TrendingPosts extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(
-                      right: 5,
+                      right: 15,
                       top: 5,
                       bottom: 5,
                     ),
@@ -80,17 +83,17 @@ class TrendingPosts extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          // margin: EdgeInsets.symmetric(horizontal: 1.w),
-                          child: Text("#${tags[index]}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                        )
+                        // Container(
+                        //   // margin: EdgeInsets.symmetric(horizontal: 1.w),
+                        //   child: Text("#${tags[index]}",
+                        //       style: TextStyle(
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Colors.black)),
+                        // )
                       ],
                     ),
                   );
-                }),
+                }).marginOnly(left: 10.sp),
           ),
         ],
       );

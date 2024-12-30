@@ -82,6 +82,9 @@ class ExploreTagsTab extends StatelessWidget {
                       Divider(
                         color: Colors.grey[200],
                       ),
+                      SizedBox(
+                        height: 5.sp,
+                      ),
                       ExplorePosts(
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10.w),
@@ -90,7 +93,7 @@ class ExploreTagsTab extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
-                                fontSize: 11.sp),
+                                fontSize: 13.sp),
                           ),
                         ),
                       )

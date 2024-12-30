@@ -16,7 +16,7 @@ class ExplorePosts extends StatelessWidget {
         children: [
           title,
           SizedBox(
-            height: 5.h,
+            height: 10.h,
           ),
           GridView.builder(
               padding: EdgeInsets.zero,
@@ -24,8 +24,8 @@ class ExplorePosts extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 1.w, // Horizontal spacing
-                mainAxisSpacing: 1.h, // Vertical spacing
+                crossAxisSpacing: 5.w, // Horizontal spacing
+                mainAxisSpacing: 5.h, // Vertical spacing
                 childAspectRatio: 1,
               ),
               itemCount: controller.posts.length,

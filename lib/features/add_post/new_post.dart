@@ -59,11 +59,10 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
                                   border: Border.all(color: Color(0xffF5F5F7)),
                                   borderRadius: BorderRadius.circular(10.sp)),
                               margin: EdgeInsets.symmetric(horizontal: 30.sp),
-                              height: 500.sp,
                               width: MediaQuery.of(context).size.width,
                               child: Image.file(
                                 controller.newPostImage!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],
