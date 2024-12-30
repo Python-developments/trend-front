@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:trend/data/models/post_model.dart';
 import 'package:trend/features/search/controllers/explore_controller.dart';
 import 'package:trend/features/search/widgets/explore_posts.dart';
+import 'package:trend/utils/colors.dart';
 import 'package:trend/utils/widgets/custom_cached_image.dart';
 
 class TrendingTabs extends StatelessWidget {
@@ -36,8 +37,8 @@ class TrendingTabs extends StatelessWidget {
                   Text(
                     "#${controller.tag}",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        color: Color(AppColors.black),
                         fontSize: 14.sp),
                   ),
                   IconButton(
@@ -55,7 +56,9 @@ class TrendingTabs extends StatelessWidget {
                 child: Text(
                   "TOP POSTS",
                   style: TextStyle(
-                      fontWeight: FontWeight.w700, color: Colors.grey),
+                      fontWeight: FontWeight.bold,
+                      color: Color(AppColors.greyExtraDark),
+                      fontSize: 11.sp),
                 ),
               ),
               SizedBox(
@@ -91,10 +94,15 @@ class TrendingTabs extends StatelessWidget {
                     children: [
                       Text("MOST RECENT",
                           style: TextStyle(
-                              fontWeight: FontWeight.w700, color: Colors.grey)),
+                              fontWeight: FontWeight.bold,
+                              color: Color(AppColors.greyExtraDark),
+                              fontSize: 11.sp)),
                       Text(
                         "829,202 posts",
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Color(AppColors.greyExtraDark)),
                       ),
                     ],
                   ),

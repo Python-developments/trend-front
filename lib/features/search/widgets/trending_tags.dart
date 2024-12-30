@@ -34,12 +34,14 @@ class TrendingPosts extends StatelessWidget {
                           color: Colors.blue,
                           fontSize: 13.sp),
                     ),
+                    SizedBox(width: 4),
                     SvgPicture.asset(
+                      fit: BoxFit.fitWidth,
                       'assets/icons/arrow-right.svg',
-                      height: 15.sp,
-                      // width: 15.sp,
+                      height: 9.sp,
+                      clipBehavior: Clip.hardEdge,
                       color: Color(AppColors.greyExtraDark),
-                    )
+                    ),
                   ],
                 ),
               ],
