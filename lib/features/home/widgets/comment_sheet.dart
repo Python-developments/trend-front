@@ -137,6 +137,7 @@ class CommentSheet extends StatelessWidget {
                                       e.comment,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
+                                        color: Color(AppColors.matteBlue),
                                         fontSize: 11.sp,
                                       ),
                                     ),

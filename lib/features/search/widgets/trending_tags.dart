@@ -14,7 +14,7 @@ class TrendingPosts extends StatelessWidget {
       return Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
+            // margin: EdgeInsets.symmetric(horizontal: 0.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -23,7 +23,7 @@ class TrendingPosts extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(AppColors.greyExtraDark),
-                      fontSize: 13.sp),
+                      fontSize: 11.5.sp),
                 ),
                 Row(
                   children: [
@@ -32,7 +32,7 @@ class TrendingPosts extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
-                          fontSize: 13.sp),
+                          fontSize: 11.5.sp),
                     ),
                     SizedBox(width: 4),
                     SvgPicture.asset(
@@ -85,17 +85,10 @@ class TrendingPosts extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   // margin: EdgeInsets.symmetric(horizontal: 1.w),
-                        //   child: Text("#${tags[index]}",
-                        //       style: TextStyle(
-                        //           fontWeight: FontWeight.bold,
-                        //           color: Colors.black)),
-                        // )
                       ],
                     ),
                   );
-                }).marginOnly(left: 10.sp),
+                }).marginOnly(left: 2.sp),
           ),
         ],
       );

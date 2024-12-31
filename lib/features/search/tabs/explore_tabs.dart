@@ -96,7 +96,7 @@ class ExploreTagsTab extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
-                                fontSize: 13.sp),
+                                fontSize: 11.5.sp),
                           ),
                         ),
                       )
