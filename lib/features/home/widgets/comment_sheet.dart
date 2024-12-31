@@ -34,7 +34,7 @@ class CommentSheet extends StatelessWidget {
           GetBuilder<HomeController>(builder: (controller) {
             return Expanded(
               child: ListView.builder(
-                itemCount: controller.posts[0].comments.length,
+                itemCount: controller.posts[index].comments.length,
                 itemBuilder: (context, commentsIndex) {
                   final comment =
                       controller.posts[index].comments[commentsIndex];

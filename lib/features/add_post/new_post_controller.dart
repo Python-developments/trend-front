@@ -16,6 +16,14 @@ class NewPostController extends GetxController {
   TextEditingController contentController = TextEditingController();
   File? newPostImage;
   String? avatarFileUrl;
+  void _scrollToEnd() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
+  }
+
   pickImage(BuildContext context, ImageSource imageSource) async {
     final pickedImage =
         await MediaPickerUtils().pickImage(context, imageSource);
@@ -32,6 +40,8 @@ class NewPostController extends GetxController {
 
       newPostImage = await cropImage(pickedImage, changeHeigh);
       update();
+      await Future.delayed(Duration(milliseconds: 200));
+      _scrollToEnd();
     }
   }
 
