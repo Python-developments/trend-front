@@ -29,12 +29,16 @@ class ActivitiesPost extends StatelessWidget {
                     postModel.likedByMe
                         ? 'assets/icons/like_fill.svg'
                         : 'assets/icons/like.svg',
-                    color: postModel.likedByMe ? Colors.red : Colors.grey,
-                    height: 12.h,
+                    color: postModel.likedByMe ? Colors.red : Colors.black,
+                    height: 13.h,
                   ),
                   Text(
                     " ${postModel.likeCounts == 0 ? '' : postModel.likeCounts}${postModel.likeCounts <= 1 ? ' like' : ' likes'}",
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -44,8 +48,8 @@ class ActivitiesPost extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/comment.svg',
-                  color: Colors.grey,
-                  height: 12.h,
+                  color: Colors.black,
+                  height: 13.h,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -70,8 +74,9 @@ class ActivitiesPost extends StatelessWidget {
                   child: Text(
                     " ${postModel.commentsCounts == 0 ? '' : postModel.commentsCounts}${postModel.commentsCounts <= 1 ? ' comment' : ' comments'}",
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.sp,
+                      color: Colors.black,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -82,20 +87,23 @@ class ActivitiesPost extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/share.svg',
-                  color: Colors.grey,
+                  color: Colors.black,
                   height: 12.h,
                 ),
                 Text(
                   ' share',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
           ],
         ),
-        Divider(
-          color: Colors.grey,
-          thickness: 0.1,
+        SizedBox(
+          height: 10.h,
         ),
       ],
     );
