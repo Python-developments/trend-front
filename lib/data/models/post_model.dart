@@ -30,7 +30,12 @@ class PostModel {
 
 class CommentModel {
   String comment;
+  bool likedByMe;
+  int likeCounts;
+  int? commentsCounts;
   ProfileModel authorProfile;
+  bool showMore;
   List<CommentModel> comments = [];
-  CommentModel(this.comment, this.authorProfile);
+  CommentModel(this.comment, this.authorProfile, this.likeCounts,
+      [this.likedByMe = false, this.showMore = false]);
 }

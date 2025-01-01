@@ -27,13 +27,15 @@ class HomeController extends GetxController {
               ProfileModel(
                   username: "fake user 1",
                   email: "fake user 1@gmail.com",
-                  bio: "This is bio from posts")),
+                  bio: "This is bio from posts"),
+              0),
           CommentModel(
               "This is fake comment 2",
               ProfileModel(
                   username: "fake user 2",
                   email: "fake user 2@gmail.com",
-                  bio: "This is bio from posts"))
+                  bio: "This is bio from posts"),
+              0)
         ],
         profileModel: ProfileModel(
             username: "username",
@@ -82,6 +84,30 @@ class HomeController extends GetxController {
     update();
   }
 
+  likeSubComment(int postIndex, int commentIndex, [int? subCommentIndex]) {
+    PostModel postModel = posts[postIndex];
+    late CommentModel commentModel;
+    if (subCommentIndex == null) {
+      commentModel = postModel.comments[commentIndex];
+    } else {
+      commentModel = postModel.comments[commentIndex].comments[subCommentIndex];
+    }
+
+    commentModel.likedByMe = !commentModel.likedByMe;
+    if (commentModel.likedByMe) {
+      commentModel.likeCounts++;
+    } else {
+      commentModel.likeCounts--;
+    }
+    if (subCommentIndex == null) {
+      postModel.comments[commentIndex] = commentModel;
+    } else {
+      postModel.comments[commentIndex].comments[subCommentIndex] = commentModel;
+    }
+
+    update();
+  }
+
   addComment(int index) {
     PostModel postModel = posts[index];
     postModel.comments.add(CommentModel(
@@ -89,7 +115,8 @@ class HomeController extends GetxController {
         ProfileModel(
             username: "username",
             email: "email@gmail.com",
-            bio: "This is bio from posts")));
+            bio: "This is bio from posts"),
+        0));
     postModel.commentsCounts++;
     commentController.clear();
     update();
@@ -103,11 +130,12 @@ class HomeController extends GetxController {
 
   addCommentOnComments(int index, int commentIndex) {
     CommentModel commentModel = CommentModel(
-        commentController.text,
+        commentController.text.substring(commentController.text.indexOf(" ")),
         ProfileModel(
             username: "username",
             email: "email@gmail.com",
-            bio: "This is bio from posts"));
+            bio: "This is bio from posts"),
+        0);
     posts[index].comments[commentIndex].comments.add(commentModel);
     commentController.clear();
     update();

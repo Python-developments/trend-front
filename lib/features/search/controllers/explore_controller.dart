@@ -23,13 +23,15 @@ class ExploreController extends GetxController {
               ProfileModel(
                   username: "fake user 1",
                   email: "fake user 1@gmail.com",
-                  bio: "This is bio from posts")),
+                  bio: "This is bio from posts"),
+              0),
           CommentModel(
               "This is fake comment 2",
               ProfileModel(
                   username: "fake user 2",
                   email: "fake user 2@gmail.com",
-                  bio: "This is bio from posts"))
+                  bio: "This is bio from posts"),
+              0)
         ],
         profileModel: ProfileModel(
             username: "username",
