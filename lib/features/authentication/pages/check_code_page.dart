@@ -86,9 +86,7 @@ class _CheckCodePageState extends State<CheckCodePage> {
   void _onSubmit() {
     if (_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
-      if (!Get.isRegistered<AuthController>()) {
-        Get.put<AuthController>(AuthController());
-      }
+
       Get.find<AuthController>().checkCode();
     }
   }

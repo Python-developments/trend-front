@@ -13,7 +13,7 @@ import 'package:trend/utils/theme/theme_controller.dart'; // Import your custom 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  Get.put<HomeController>(HomeController());
+  Get.put<HomeController>(HomeController(Get.find()));
   await Get.put<BnbController>(BnbController(), permanent: true);
   runApp(
     const ProviderScope(child: MyApp()),
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.login,
+            initialRoute: AppRoutes.splach,
             getPages: GetPages
                 .getPages, // Ensure you define this in your utils/routes.dart
             onGenerateRoute: onGenerateRoute, // Handle dynamic routing

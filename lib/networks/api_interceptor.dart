@@ -22,7 +22,64 @@ class AppInterceptors extends Interceptor {
 
   @override
   Future<dynamic> onError(DioException err, ErrorInterceptorHandler handler) {
+    String meaage = handleErrors(err.response?.data);
+    Get.bottomSheet(Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+      child: Stack(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                "assets/icons/close.png",
+                height: 50,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                meaage,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              )
+            ],
+          ).paddingSymmetric(horizontal: 15, vertical: 20),
+          Positioned(
+              right: 0,
+              child: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.close)))
+        ],
+      ),
+    ));
     return _handleCachedResponse(err, handler);
+  }
+
+  String handleErrors(Map<String, dynamic> errors) {
+    StringBuffer errorBuffer = StringBuffer();
+
+    for (var entry in errors.entries) {
+      String field = entry.key; // The field causing the error
+      dynamic messages =
+          entry.value; // The list of error messages for the field
+
+      if (messages is List) {
+        for (var message in messages) {
+          errorBuffer.writeln('* $field: $message');
+        }
+      } else {
+        // If the value is not a list, handle it gracefully
+        errorBuffer.writeln('$field: $messages');
+      }
+    }
+
+    return errorBuffer.toString();
   }
 
   @override
@@ -38,6 +95,7 @@ class AppInterceptors extends Interceptor {
 
   void logRequest(RequestOptions options) {
     log(options.baseUrl + options.path);
+    log(options.data.toString());
   }
 
   void _handleCache(RequestOptions options, RequestInterceptorHandler handler) {

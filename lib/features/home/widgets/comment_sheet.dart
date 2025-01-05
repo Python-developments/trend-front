@@ -1,21 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trend/features/home/controllers/home_controller.dart';
-import 'package:trend/utils/colors.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
 
-class CommentSheet extends StatefulWidget {
+class CommentSheet extends StatelessWidget {
   final int index;
   CommentSheet({super.key, required this.index});
 
-  @override
-  State<CommentSheet> createState() => _CommentSheetState();
-}
-
-class _CommentSheetState extends State<CommentSheet> {
   int commentIndex = -1;
-  bool showMore = false;
+  setCommentIndex(int commentIndex) {
+    this.commentIndex = commentIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,264 +42,12 @@ class _CommentSheetState extends State<CommentSheet> {
           GetBuilder<HomeController>(builder: (controller) {
             return Expanded(
               child: ListView.builder(
-                itemCount: controller.posts[widget.index].comments.length,
+                itemCount: controller.posts[index].comments.length,
                 itemBuilder: (context, commentsIndex) {
                   final comment =
-                      controller.posts[widget.index].comments[commentsIndex];
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8.h, horizontal: 16.w),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Avatar
-                            CircleAvatar(
-                              radius: 16,
-                              backgroundImage: AssetImage(
-                                  'assets/images/image.png'), // Example image
-                            ),
-                            SizedBox(width: 10.w),
-                            // Username and Comment
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    comment.authorProfile.username,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        comment.comment,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11.sp,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.find<HomeController>()
-                                              .likeSubComment(
-                                                  widget.index, commentsIndex);
-                                        },
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.asset(
-                                              comment.likedByMe
-                                                  ? 'assets/icons/like_fill.svg'
-                                                  : 'assets/icons/like.svg',
-                                              color: comment.likedByMe
-                                                  ? Colors.red
-                                                  : Colors.grey,
-                                              height: 12.h,
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                " ${comment.likeCounts == 0 ? '' : comment.likeCounts}",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Like",
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          commentIndex = commentsIndex;
-                                          controller.focusOnReplyComment(
-                                              controller.posts[widget.index]
-                                                  .profileModel);
-                                        },
-                                        child: Text("Reply",
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold)),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: (controller.posts[widget.index]
-                                    .comments[commentsIndex].comments.length !=
-                                0 &&
-                            !showMore),
-                        child: GestureDetector(
-                          onTap: () {
-                            showMore = true;
-                            setState(() {});
-                          },
-                          child: Text(
-                            "View ${controller.posts[widget.index].comments[commentsIndex].comments.length} more replies",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11.sp),
-                          ).paddingOnly(left: 50.sp),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.sp,
-                      ),
-                      Visibility(
-                        visible: showMore,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: comment.comments.length,
-                            itemBuilder: (context, subCommentIndex) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60, bottom: 15, right: 17),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Avatar
-                                    CircleAvatar(
-                                      radius: 10,
-                                      backgroundImage: AssetImage(
-                                          'assets/images/image.png'), // Example image
-                                    ),
-                                    SizedBox(width: 10.w),
-                                    // Username and Comment
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            comment.comments[subCommentIndex]
-                                                .authorProfile.username,
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "@" +
-                                                    comment
-                                                        .comments[
-                                                            subCommentIndex]
-                                                        .authorProfile
-                                                        .username,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 11.sp,
-                                                    color: Colors.blue),
-                                              ),
-                                              Text(
-                                                comment
-                                                    .comments[subCommentIndex]
-                                                    .comment,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 11.sp,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.find<HomeController>()
-                                            .likeSubComment(widget.index,
-                                                commentsIndex, subCommentIndex);
-                                      },
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SvgPicture.asset(
-                                            comment.comments[subCommentIndex]
-                                                    .likedByMe
-                                                ? 'assets/icons/like_fill.svg'
-                                                : 'assets/icons/like.svg',
-                                            color: comment
-                                                    .comments[subCommentIndex]
-                                                    .likedByMe
-                                                ? Colors.red
-                                                : Colors.grey,
-                                            height: 12.h,
-                                          ),
-                                          Text(
-                                            " ${comment.comments[subCommentIndex].likeCounts == 0 ? '' : comment.comments[subCommentIndex].likeCounts}",
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                      ),
-                      Visibility(
-                        visible: (controller.posts[widget.index]
-                                    .comments[commentsIndex].comments.length !=
-                                0 &&
-                            showMore),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showMore = false;
-                                setState(() {});
-                              },
-                              child: Text(
-                                "Hide replies",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11.sp),
-                              ).paddingOnly(left: 50.sp),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
+                      controller.posts[index].comments[commentsIndex];
+                  return CommentWidget(
+                      comment, index, commentsIndex, setCommentIndex);
                 },
               ),
             );
@@ -363,11 +110,9 @@ class _CommentSheetState extends State<CommentSheet> {
                   onPressed: () {
                     if (commentIndex != -1) {
                       Get.find<HomeController>()
-                          .addCommentOnComments(widget.index, commentIndex);
-                      showMore = true;
-                      setState(() {});
+                          .addCommentOnComments(index, commentIndex);
                     } else {
-                      Get.find<HomeController>().addComment(widget.index);
+                      Get.find<HomeController>().addComment(index);
                     }
                     commentIndex = -1;
                   },
@@ -379,6 +124,269 @@ class _CommentSheetState extends State<CommentSheet> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CommentWidget extends StatefulWidget {
+  final Function function;
+  final Comment comment;
+  final int postIndex;
+  final int commentIndex;
+  CommentWidget(this.comment, this.postIndex, this.commentIndex, this.function);
+
+  @override
+  State<CommentWidget> createState() => _CommentWidgetState();
+}
+
+class _CommentWidgetState extends State<CommentWidget> {
+  bool showMore = false;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Avatar
+              CircleAvatar(
+                radius: 16,
+                backgroundImage:
+                    AssetImage('assets/images/image.png'), // Example image
+              ),
+              SizedBox(width: 10.w),
+              // Username and Comment
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.comment.author ?? '',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          widget.comment.content ?? '',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11.sp,
+                          ),
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.find<HomeController>().likeSubComment(
+                                widget.postIndex, widget.commentIndex);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                (widget.comment.likedByMe ?? false)
+                                    ? 'assets/icons/like_fill.svg'
+                                    : 'assets/icons/like.svg',
+                                color: (widget.comment.likedByMe ?? false)
+                                    ? Colors.red
+                                    : Colors.grey,
+                                height: 12.h,
+                              ),
+                              Text(
+                                "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            widget.function(widget.commentIndex);
+                            Get.find<HomeController>().focusOnReplyComment(
+                                Get.find<HomeController>()
+                                        .posts[widget.postIndex]
+                                        .author ??
+                                    '');
+                          },
+                          child: Text("Reply",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Visibility(
+          visible: ((Get.find<HomeController>()
+                          .posts[widget.postIndex]
+                          .comments[widget.commentIndex]
+                          .replies
+                          ?.length ??
+                      0) !=
+                  0 &&
+              !showMore),
+          child: GestureDetector(
+            onTap: () {
+              showMore = true;
+              setState(() {});
+            },
+            child: Text(
+              "View ${Get.find<HomeController>().posts[widget.postIndex].comments[widget.commentIndex].replies?.length} more replies",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11.sp),
+            ).paddingOnly(left: 50.sp),
+          ),
+        ),
+        SizedBox(
+          height: 10.sp,
+        ),
+        Visibility(
+          visible: showMore,
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.comment.replies?.length,
+              itemBuilder: (context, subCommentIndex) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 60, bottom: 15, right: 17),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Avatar
+                      CircleAvatar(
+                        radius: 10,
+                        backgroundImage: AssetImage(
+                            'assets/images/image.png'), // Example image
+                      ),
+                      SizedBox(width: 10.w),
+                      // Username and Comment
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.comment.replies?[subCommentIndex].author ??
+                                  '',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "@" +
+                                      (widget.comment.replies?[subCommentIndex]
+                                              .author ??
+                                          ''),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11.sp,
+                                      color: Colors.blue),
+                                ),
+                                Text(
+                                  widget.comment.replies?[subCommentIndex]
+                                          .content ??
+                                      '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.find<HomeController>().likeSubComment(
+                              widget.postIndex,
+                              widget.commentIndex,
+                              subCommentIndex);
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              (widget.comment.replies?[subCommentIndex]
+                                          .likedByMe ??
+                                      false)
+                                  ? 'assets/icons/like_fill.svg'
+                                  : 'assets/icons/like.svg',
+                              color: (widget.comment.replies?[subCommentIndex]
+                                          .likedByMe ??
+                                      false)
+                                  ? Colors.red
+                                  : Colors.grey,
+                              height: 12.h,
+                            ),
+                            Text(
+                              " ${widget.comment.replies?[subCommentIndex].likesCount == 0 ? '' : widget.comment.replies?[subCommentIndex].likesCount}",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ),
+        Visibility(
+          visible: (Get.find<HomeController>()
+                      .posts[widget.postIndex]
+                      .comments[widget.commentIndex]
+                      .replies
+                      ?.length !=
+                  0 &&
+              showMore),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  showMore = false;
+                  setState(() {});
+                },
+                child: Text(
+                  "Hide replies",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.sp),
+                ).paddingOnly(left: 50.sp),
+              ),
+              SizedBox(
+                height: 5,
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

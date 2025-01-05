@@ -7,10 +7,12 @@ import 'package:trend/features/add_post/new_post.dart';
 import 'package:trend/features/bottom_nav_bar/bnb_controller.dart';
 import 'package:trend/features/home/home_page.dart';
 import 'package:trend/features/notifications/notifications.dart';
+import 'package:trend/features/profile/controller/profile_controller.dart';
 import 'package:trend/features/profile/views/pages/my_profile/my_profile.dart';
 import 'package:trend/features/search/tabs/explore_main_page.dart';
 import 'package:trend/features/search/tabs/explore_tabs.dart';
 import 'package:trend/utils/colors.dart';
+import 'package:trend/utils/sharedprefrences_helper.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -27,7 +29,9 @@ class _MainScreenState extends State<MainScreen> {
     const ExploreMainPage(),
     const AddNewPostPage(),
     const Notifications(),
-    const MyProfile(),
+    const MyProfile(
+      canBack: false,
+    ),
   ];
 
   void _onItemTapped(int index) {

@@ -56,9 +56,6 @@ class ResetPasswordPage extends StatelessWidget {
                             text: 'Send Reset Link',
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if (!Get.isRegistered<AuthController>()) {
-                                  Get.put<AuthController>(AuthController());
-                                }
                                 Get.find<AuthController>()
                                     .resetPassword(_emailController.text);
                               } else {

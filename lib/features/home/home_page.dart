@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:trend/data/models/post_model.dart';
 import 'package:trend/features/home/controllers/home_controller.dart';
 import 'package:trend/features/home/widgets/post_widget.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -54,10 +55,12 @@ class HomePage extends StatelessWidget {
             height: 1,
           ),
           GetBuilder<HomeController>(
-              init: HomeController(),
+              init: HomeController(Get.find()),
               builder: (controller) {
                 return Expanded(
                   child: ListView.builder(
+                    // addAutomaticKeepAlives: true,
+                    controller: controller.scrollController,
                     itemCount: controller.posts.length,
                     itemBuilder: (context, index) {
                       return PostWidget(controller.posts[index], index);
@@ -65,6 +68,16 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               }),
+          Obx(() {
+            return Get.find<HomeController>().isLoading.value
+                ? SizedBox(
+                    height: 30,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : SizedBox();
+          })
         ],
       ),
     );

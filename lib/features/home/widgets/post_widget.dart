@@ -6,9 +6,10 @@ import 'package:trend/features/home/activities_post.dart';
 import 'package:trend/features/home/body_post.dart';
 import 'package:trend/features/home/controllers/home_controller.dart';
 import 'package:trend/features/home/header_post.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
 
 class PostWidget extends StatelessWidget {
-  PostModel postModel;
+  Post postModel;
   int index;
   PostWidget(this.postModel, this.index);
   @override
@@ -18,6 +19,7 @@ class PostWidget extends StatelessWidget {
       children: [
         HeaderPost(
           postModel: postModel,
+          index: index,
         ),
         GestureDetector(
           onDoubleTap: () {

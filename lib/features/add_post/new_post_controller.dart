@@ -1,18 +1,22 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide MultipartFile;
+import 'package:dio/dio.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:insta_assets_picker/insta_assets_picker.dart';
-import 'package:trend/data/models/post_model.dart';
-import 'package:trend/data/models/profile_model.dart';
 import 'package:trend/features/bottom_nav_bar/bnb_controller.dart';
 import 'package:trend/features/home/controllers/home_controller.dart';
+import 'package:trend/networks/api_repository.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
 import 'package:trend/utils/media_picker_utils.dart';
 import 'package:image/image.dart' as img;
+import 'package:trend/utils/sharedprefrences_helper.dart';
 
 class NewPostController extends GetxController {
+  ApiRepository apiRepository;
+  NewPostController(this.apiRepository);
   TextEditingController contentController = TextEditingController();
   File? newPostImage;
   String? avatarFileUrl;
@@ -24,6 +28,8 @@ class NewPostController extends GetxController {
     );
   }
 
+  late double imageHeight;
+  late double imageWidth;
   pickImage(BuildContext context, ImageSource imageSource) async {
     final pickedImage =
         await MediaPickerUtils().pickImage(context, imageSource);
@@ -31,8 +37,8 @@ class NewPostController extends GetxController {
     if (pickedImage != null) {
       avatarFileUrl = pickedImage.path;
       final img.Image image = img.decodeImage(await pickedImage.readAsBytes())!;
-      double imageHeight = image.height.toDouble();
-      double imageWidth = image.width.toDouble();
+      imageHeight = image.height.toDouble();
+      imageWidth = image.width.toDouble();
       bool changeHeigh = false;
       if (imageHeight > (1.5 * imageWidth)) {
         changeHeigh = true;
@@ -94,23 +100,22 @@ class NewPostController extends GetxController {
     return File(pickedFile.path);
   }
 
-  addNewPost() {
-    Get.find<HomeController>().addNewPost(
-      PostModel(
-          locationName: "",
-          file: newPostImage,
-          image:
-              "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          content: contentController.text,
-          createdAt: "15 5 1987",
-          profileModel: ProfileModel(
-              username: "username",
-              email: "email@gmail.com",
-              bio: "This is bio from posts")),
-    );
+  RxBool isLoading = false.obs;
+  addNewPost() async {
+    isLoading.value = true;
+    MultipartFile multipartFile =
+        await MultipartFile.fromFile(newPostImage!.path);
+    Post post = await apiRepository.createPost(
+        contentController.text,
+        Get.find<SpHelper>().getUser()?.userInfo?.username ?? '',
+        imageHeight,
+        imageWidth,
+        multipartFile);
+    log(post.toJson().toString());
+    isLoading.value = false;
     newPostImage = null;
     contentController.clear();
-    update();
+    Get.find<HomeController>().addNewPost(post);
     Get.find<BnbController>().delectedIndex.value = 0;
   }
 }

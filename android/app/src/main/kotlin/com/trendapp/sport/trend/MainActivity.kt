@@ -1,4 +1,4 @@
-package com.example.trend
+package com.trendapp.sport.trend
 
 import io.flutter.embedding.android.FlutterActivity
 

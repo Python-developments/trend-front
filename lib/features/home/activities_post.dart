@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:trend/data/models/post_model.dart';
 import 'package:trend/features/home/controllers/home_controller.dart';
 import 'package:trend/features/home/widgets/comment_sheet.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
 
 class ActivitiesPost extends StatelessWidget {
-  final PostModel postModel;
+  final Post postModel;
   final int index;
   const ActivitiesPost(this.postModel, this.index, {super.key});
 
@@ -26,14 +26,16 @@ class ActivitiesPost extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    postModel.likedByMe
+                    (postModel.likedByMe ?? false)
                         ? 'assets/icons/like_fill.svg'
                         : 'assets/icons/like.svg',
-                    color: postModel.likedByMe ? Colors.red : Colors.black,
+                    color: (postModel.likedByMe ?? false)
+                        ? Colors.red
+                        : Colors.black,
                     height: 13.h,
                   ),
                   Text(
-                    " ${postModel.likeCounts == 0 ? '' : postModel.likeCounts}${postModel.likeCounts <= 1 ? ' like' : ' likes'}",
+                    " ${postModel.likesCount == 0 ? '' : postModel.likesCount}${postModel.likesCount <= 1 ? ' like' : ' likes'}",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 13.sp,
@@ -72,7 +74,7 @@ class ActivitiesPost extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    " ${postModel.commentsCounts == 0 ? '' : postModel.commentsCounts}${postModel.commentsCounts <= 1 ? ' comment' : ' comments'}",
+                    " ${postModel.commentsCount == 0 ? '' : postModel.commentsCount}${postModel.commentsCount <= 1 ? ' comment' : ' comments'}",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 13.sp,

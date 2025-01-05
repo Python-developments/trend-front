@@ -157,7 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ProfileWidget(
                           icon: "assets/icons/profile/new/user2.svg",
                           title: "Username",
-                          value: controller.username ?? '',
+                          value: controller.profileModel?.username ?? '',
                         ),
                         SizedBox(
                             width: 250,
@@ -168,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         GestureDetector(
                           onTap: () {
                             Get.to(EditBio(
-                                profileEdiable: ProfileEdiable.fName,
+                                profileEdiable: ProfileEdiable.fullName,
                                 lineCount: 1,
                                 charsCount: 10,
                                 title: "First Name",
@@ -176,33 +176,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           },
                           child: ProfileWidget(
                             icon: "assets/icons/profile/new/user2.svg",
-                            title: "First Name",
-                            value: controller.fName?.isEmpty ?? true
+                            title: "Full Name",
+                            value: controller.profileModel?.fullName?.isEmpty ??
+                                    true
                                 ? "-"
-                                : controller.fName!,
-                          ),
-                        ),
-                        SizedBox(
-                            width: 250,
-                            child: Divider(
-                              height: 1,
-                              thickness: 0.2,
-                            )),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(EditBio(
-                                profileEdiable: ProfileEdiable.lName,
-                                lineCount: 1,
-                                charsCount: 10,
-                                title: "Last Name",
-                                value: controller.lName ?? ''));
-                          },
-                          child: ProfileWidget(
-                            icon: "assets/icons/profile/new/user2.svg",
-                            title: "Last Name",
-                            value: controller.lName?.isEmpty ?? true
-                                ? "-"
-                                : controller.lName!,
+                                : controller.profileModel!.fullName!,
                           ),
                         ),
                         SizedBox(
@@ -218,14 +196,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 lineCount: 3,
                                 charsCount: 50,
                                 title: "Bio",
-                                value: controller.bio ?? ''));
+                                value: controller.profileModel?.bio ?? ''));
                           },
                           child: ProfileWidget(
                             icon: "assets/icons/profile/new/user2.svg",
                             title: "Bio",
-                            value: (controller.bio?.isEmpty ?? true
-                                ? '-'
-                                : controller.bio!),
+                            value:
+                                (controller.profileModel?.bio?.isEmpty ?? true
+                                    ? '-'
+                                    : controller.profileModel?.bio ?? ''),
                           ),
                         ),
                         SizedBox(
@@ -234,7 +213,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               height: 1,
                               thickness: 0.2,
                             )),
-                        GestureDetector(
+                        /*GestureDetector(
                           onTap: () {
                             Get.to(EditBio(
                                 profileEdiable: ProfileEdiable.phone,
@@ -284,7 +263,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           icon: "assets/icons/profile/new/user2.svg",
                           title: "Email",
                           value: (controller.email ?? ''),
-                        ),
+                        ),*/
                       ],
                     ),
                   )

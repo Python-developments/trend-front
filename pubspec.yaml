@@ -31,6 +31,7 @@ dependencies:
   image_cropper: ^8.1.0
   insta_assets_picker: ^3.1.0
   image: ^4.3.0
+  change_app_package_name: ^1.4.0
 
 dev_dependencies:
   flutter_test:

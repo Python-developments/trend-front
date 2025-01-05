@@ -1,143 +1,156 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trend/data/models/post_model.dart';
 import 'package:trend/data/models/profile_model.dart';
+import 'package:trend/networks/api_repository.dart';
+import 'package:trend/networks/models/get_all_posts_response.dart';
+import 'package:trend/utils/sharedprefrences_helper.dart';
 
 class HomeController extends GetxController {
-  addNewPost(PostModel post) {
+  ApiRepository apiRepository;
+  HomeController(this.apiRepository);
+
+  final TextEditingController commentController = TextEditingController();
+
+  List<Post> posts = [];
+  addNewPost(Post post) {
     posts.insert(0, post);
     update();
   }
 
-  final TextEditingController commentController = TextEditingController();
-
-  List<PostModel> posts = [
-    PostModel(
-        locationName: "",
-        image:
-            "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        content: "Sample Content For Post",
-        createdAt: "15 5 1987",
-        commentsCounts: 2,
-        likeCounts: 5,
-        likedByMe: true,
-        comments: [
-          CommentModel(
-              "This is fake comment 1",
-              ProfileModel(
-                  username: "fake user 1",
-                  email: "fake user 1@gmail.com",
-                  bio: "This is bio from posts"),
-              0),
-          CommentModel(
-              "This is fake comment 2",
-              ProfileModel(
-                  username: "fake user 2",
-                  email: "fake user 2@gmail.com",
-                  bio: "This is bio from posts"),
-              0)
-        ],
-        profileModel: ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts")),
-    PostModel(
-        locationName: "",
-        image:
-            "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        content: "Sample Content For Post",
-        createdAt: "15 5 1987",
-        profileModel: ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts")),
-    PostModel(
-        locationName: "",
-        image:
-            "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        content: "Sample Content For Post",
-        createdAt: "15 5 1987",
-        profileModel: ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts")),
-    PostModel(
-        locationName: "",
-        image:
-            "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        content: "Sample Content For Post",
-        createdAt: "15 5 1987",
-        profileModel: ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts"))
-  ];
-  likePost(int index) {
-    PostModel postModel = posts[index];
-    postModel.likedByMe = !postModel.likedByMe;
-    if (postModel.likedByMe) {
-      postModel.likeCounts++;
-    } else {
-      postModel.likeCounts--;
-    }
-    posts[index] = postModel;
+  blockUser(int userId) async {
+    posts.removeWhere((e) => e.autherId == userId);
     update();
+    await apiRepository.blockUser(userId);
+    Get.back();
+  }
+
+  ScrollController scrollController = ScrollController();
+  addListner() {
+    scrollController.addListener(() {
+      final maxScrollExtent = scrollController.position.maxScrollExtent;
+      final offset = scrollController.offset;
+      final outOfRange = scrollController.position.outOfRange;
+      if (offset >= maxScrollExtent && !outOfRange) {
+        if (!isEnough) {
+          getAllPosts();
+        }
+      }
+    });
+  }
+
+  int page = 1;
+  RxBool isLoading = false.obs;
+  bool isEnough = false;
+  getAllPosts() async {
+    isLoading.value = true;
+    GetAllPostsResponse getAllPostsResponse =
+        await apiRepository.getPosts(page);
+    isLoading.value = false;
+    if ((getAllPostsResponse.results?.length ?? 0) < 10) {
+      isEnough = true;
+    }
+    if (posts.isEmpty) {
+      posts = getAllPostsResponse.results ?? [];
+    } else {
+      posts.addAll(getAllPostsResponse.results ?? []);
+    }
+
+    page++;
+    update();
+  }
+
+  likePost(int index) {
+    Post postModel = posts[index];
+    postModel.likedByMe = !(postModel.likedByMe ?? false);
+    if (postModel.likedByMe ?? false) {
+      postModel.likesCount++;
+    } else {
+      postModel.likesCount--;
+    }
+    posts![index] = postModel;
+    update();
+    apiRepository.likePost(postModel.id!);
   }
 
   likeSubComment(int postIndex, int commentIndex, [int? subCommentIndex]) {
-    PostModel postModel = posts[postIndex];
-    late CommentModel commentModel;
+    Post postModel = posts![postIndex];
+    late Comment commentModel;
     if (subCommentIndex == null) {
-      commentModel = postModel.comments[commentIndex];
+      commentModel = postModel.comments![commentIndex];
     } else {
-      commentModel = postModel.comments[commentIndex].comments[subCommentIndex];
+      commentModel =
+          postModel.comments![commentIndex].replies![subCommentIndex];
     }
 
-    commentModel.likedByMe = !commentModel.likedByMe;
-    if (commentModel.likedByMe) {
-      commentModel.likeCounts++;
+    commentModel.likedByMe = !(commentModel.likedByMe ?? false);
+    if (commentModel.likedByMe ?? false) {
+      commentModel.likesCount++;
     } else {
-      commentModel.likeCounts--;
+      commentModel.likesCount--;
     }
     if (subCommentIndex == null) {
-      postModel.comments[commentIndex] = commentModel;
+      postModel.comments![commentIndex] = commentModel;
     } else {
-      postModel.comments[commentIndex].comments[subCommentIndex] = commentModel;
+      postModel.comments![commentIndex].replies![subCommentIndex] =
+          commentModel;
     }
 
     update();
+    apiRepository.likeComment(commentModel.id!);
   }
 
   addComment(int index) {
-    PostModel postModel = posts[index];
-    postModel.comments.add(CommentModel(
-        commentController.text,
-        ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts"),
-        0));
-    postModel.commentsCounts++;
-    commentController.clear();
-    update();
+    if (commentController.text != "") {
+      Post postModel = posts[index];
+      postModel.comments.add(Comment(
+          content: commentController.text,
+          author: Get.find<SpHelper>().getUser()?.userInfo?.username));
+      postModel.commentsCount++;
+
+      update();
+      apiRepository.commentPost(postModel.id!, commentController.text);
+      commentController.clear();
+    }
   }
 
   FocusNode commentFocusNode = FocusNode();
-  focusOnReplyComment(ProfileModel profile_model) {
-    commentController.text = "@" + profile_model.username + ' ';
+  focusOnReplyComment(String auther) {
+    commentController.text = "@" + auther + ' ';
     commentFocusNode.requestFocus();
   }
 
-  addCommentOnComments(int index, int commentIndex) {
-    CommentModel commentModel = CommentModel(
-        commentController.text.substring(commentController.text.indexOf(" ")),
-        ProfileModel(
-            username: "username",
-            email: "email@gmail.com",
-            bio: "This is bio from posts"),
-        0);
-    posts[index].comments[commentIndex].comments.add(commentModel);
+  addCommentOnComments(int index, int commentIndex) async {
+    Post post = posts[index];
+    int postId = post.id ?? 0;
+    Comment comment = post.comments[commentIndex];
+    int commentId = comment.id ?? 0;
+    log(postId.toString());
+    log(commentId.toString());
+    Comment commentModel = Comment(
+      author: Get.find<SpHelper>().getUser()?.userInfo?.username,
+      content:
+          commentController.text.substring(commentController.text.indexOf(" ")),
+    );
+    posts[index].comments[commentIndex].replies?.add(commentModel);
+    await apiRepository.commentComment(
+        postId: postId, commentId: commentId, comment: commentController.text);
     commentController.clear();
     update();
+  }
+
+  deletePost(int index, int id) async {
+    posts.removeAt(index);
+    update();
+    await apiRepository.deletePost(id);
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getAllPosts();
+    addListner();
   }
 }
