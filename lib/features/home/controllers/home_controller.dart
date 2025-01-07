@@ -140,6 +140,12 @@ class HomeController extends GetxController {
     update();
   }
 
+  deleteMyComent(int postIndex, int commentIndex, int postId, int commentId) {
+    posts[postIndex].comments.removeAt(commentIndex);
+    update();
+    apiRepository.deleteComment(postId, commentId);
+  }
+
   deletePost(int index, int id) async {
     posts.removeAt(index);
     update();

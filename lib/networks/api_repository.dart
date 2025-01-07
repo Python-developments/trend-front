@@ -158,6 +158,11 @@ class ApiRepository {
     return true;
   }
 
+  Future<bool> deleteComment(int id, int commentId) async {
+    await dio.delete(ApiEndPoints.getPostComment(id, commentId));
+    return true;
+  }
+
   Future<bool> commentComment(
       {required int postId,
       required int commentId,
