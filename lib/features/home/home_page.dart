@@ -63,7 +63,12 @@ class HomePage extends StatelessWidget {
                     controller: controller.scrollController,
                     itemCount: controller.posts.length,
                     itemBuilder: (context, index) {
-                      return PostWidget(controller.posts[index], index);
+                      return PostWidget(
+                        postModel: controller.posts[index],
+                        index: index,
+                        isprofilePost: false,
+                        function: () {},
+                      );
                     },
                   ),
                 );

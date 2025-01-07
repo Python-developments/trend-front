@@ -9,9 +9,15 @@ import 'package:trend/features/home/header_post.dart';
 import 'package:trend/networks/models/get_all_posts_response.dart';
 
 class PostWidget extends StatelessWidget {
-  Post postModel;
-  int index;
-  PostWidget(this.postModel, this.index);
+  final Function function;
+  final bool isprofilePost;
+  final Post postModel;
+  final int index;
+  PostWidget(
+      {required this.postModel,
+      required this.index,
+      required this.function,
+      required this.isprofilePost});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

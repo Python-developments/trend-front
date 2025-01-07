@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:trend/data/sources/fake_data.dart';
+import 'package:trend/features/home/posts_page_profile.dart';
 import 'package:trend/features/profile/controller/profile_controller.dart';
 import 'package:trend/data/models/profile_model.dart';
 import 'package:trend/features/profile/views/pages/edit_profile/edit_profile.dart';
@@ -247,6 +248,11 @@ class _MyProfileState extends State<MyProfile> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
+                              Get.to(PostsUserPage(
+                                index: index,
+                                posts: controller.userPosts ?? [],
+                                userId: controller.id ?? 0,
+                              ));
                               // Get.to("/userposts", extra: {
                               //   "index": index,
                               //   "posts": widget.profile.posts.items,

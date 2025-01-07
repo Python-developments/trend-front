@@ -146,6 +146,13 @@ class HomeController extends GetxController {
     await apiRepository.deletePost(id);
   }
 
+  List<Post>? userPosts;
+  getUserPosts(int userId) async {
+    GetAllPostsResponse response = await apiRepository.getUserPosts(userId);
+    userPosts = response.results;
+    update();
+  }
+
   @override
   void onInit() {
     // TODO: implement onInit
