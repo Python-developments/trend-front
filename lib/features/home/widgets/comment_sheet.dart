@@ -33,7 +33,7 @@ class CommentSheet extends StatelessWidget {
           SizedBox(height: 6.h),
           Divider(
             color: Colors.grey,
-            thickness: 0.1,
+            thickness: 0.1.h,
             height: 5.h,
           ),
           SizedBox(height: 6.h),
@@ -55,13 +55,13 @@ class CommentSheet extends StatelessWidget {
 
           // Thin grey line above text field
           Divider(
-            color: Colors.grey,
-            thickness: 0.1,
+            color: const Color.fromARGB(255, 105, 105, 105),
+            thickness: 0.1.h,
             height: 1,
           ),
           Padding(
             padding:
-                EdgeInsets.only(left: 16.w, right: 16.w, bottom: 3.h, top: 3.h),
+                EdgeInsets.only(left: 15.w, right: 7.w, bottom: 3.h, top: 5.h),
             child: Row(
               children: [
                 // Avatar on the left of input field
@@ -103,7 +103,7 @@ class CommentSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 10.w),
+                SizedBox(width: 1.w),
 
                 // Send Button
                 IconButton(
