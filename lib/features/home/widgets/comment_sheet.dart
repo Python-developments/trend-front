@@ -19,7 +19,7 @@ class CommentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.4.h,
+      height: Get.height * 0.6 - 33.h,
       child: Column(
         children: [
           // Comments header
