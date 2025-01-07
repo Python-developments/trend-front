@@ -37,9 +37,8 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
             initialRoute: AppRoutes.splach,
-            getPages: GetPages
-                .getPages, // Ensure you define this in your utils/routes.dart
-            onGenerateRoute: onGenerateRoute, // Handle dynamic routing
+            getPages: GetPages.getPages,
+            onGenerateRoute: onGenerateRoute,
           );
         });
       },

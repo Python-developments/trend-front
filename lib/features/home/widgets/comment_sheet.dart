@@ -19,7 +19,7 @@ class CommentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.7,
+      height: Get.height * 0.4.h,
       child: Column(
         children: [
           // Comments header
@@ -60,13 +60,13 @@ class CommentSheet extends StatelessWidget {
             height: 1,
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: 16.w, right: 16.w, bottom: 16.h, top: 8.h),
+            padding:
+                EdgeInsets.only(left: 16.w, right: 16.w, bottom: 3.h, top: 3.h),
             child: Row(
               children: [
                 // Avatar on the left of input field
                 CircleAvatar(
-                  radius: 15.h,
+                  radius: 13.h,
                   backgroundImage: AssetImage('assets/images/image.png'),
                 ),
                 SizedBox(width: 10.w),
@@ -74,7 +74,7 @@ class CommentSheet extends StatelessWidget {
                 // Input field
                 Expanded(
                   child: Container(
-                    height: 35.h, // Reduce height to make the input compact
+                    height: 30.h, // Reduce height to make the input compact
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50.0),
                       border: Border.all(
@@ -93,8 +93,8 @@ class CommentSheet extends StatelessWidget {
                         ),
                         border: InputBorder.none, // Remove default borders
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.h, // Reduce vertical padding
-                          horizontal: 16.w, // Add consistent horizontal padding
+                          vertical: 9.h, // Reduce vertical padding
+                          horizontal: 15.w, // Add consistent horizontal padding
                         ),
                       ),
                       style: TextStyle(
@@ -116,8 +116,18 @@ class CommentSheet extends StatelessWidget {
                     }
                     commentIndex = -1;
                   },
-                  icon: const Icon(Icons.send),
-                  color: Colors.blue,
+                  icon: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                    ),
+                    padding: EdgeInsets.all(5.h),
+                    child: SvgPicture.asset(
+                      'assets/icons/arrow-up-send.svg',
+                      height: 15.h,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -158,7 +168,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                 backgroundImage:
                     AssetImage('assets/images/image.png'), // Example image
               ),
-              SizedBox(width: 10.w),
+              SizedBox(width: 9.w),
               // Username and Comment
               Expanded(
                 child: Column(
@@ -167,7 +177,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                     Text(
                       widget.comment.author ?? '',
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -196,11 +206,12 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 color: (widget.comment.likedByMe ?? false)
                                     ? Colors.red
                                     : Colors.grey,
-                                height: 12.h,
+                                height: 10.h,
                               ),
                               Text(
                                 "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 10.sp),
                               ),
                             ],
                           ),
