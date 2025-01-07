@@ -85,17 +85,17 @@ class CommentSheet extends StatelessWidget {
                     child: TextField(
                       focusNode: Get.find<HomeController>().commentFocusNode,
                       controller: Get.find<HomeController>().commentController,
-                      cursorColor: Colors.black, // Change the cursor color here
-                      cursorHeight: 12.h, // Set the cursor height here
+                      cursorColor: Colors.black,
+                      cursorHeight: 11.h,
                       decoration: InputDecoration(
-                        hintText: "comment...",
+                        hintText: " comment...",
                         hintStyle: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.grey[400],
                         ),
                         border: InputBorder.none, // Remove default borders
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: 9.h, // Reduce vertical padding
+                          vertical: 8.9.h, // Reduce vertical padding
                           horizontal: 15.w, // Add consistent horizontal padding
                         ),
                       ),
@@ -126,7 +126,7 @@ class CommentSheet extends StatelessWidget {
                     padding: EdgeInsets.all(5.h),
                     child: SvgPicture.asset(
                       'assets/icons/arrow-up-send.svg',
-                      height: 15.h,
+                      height: 16.h,
                       color: Colors.white,
                     ),
                   ),
