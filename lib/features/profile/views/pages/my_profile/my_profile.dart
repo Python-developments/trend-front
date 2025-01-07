@@ -56,22 +56,17 @@ class _MyProfileState extends State<MyProfile> {
                       imageUrl: controller.profileModel?.avatar ?? '',
                       size: 90.r,
                     ),
-                    SizedBox(height: 10.h),
                     (controller.profileModel?.fullName == null)
                         ? SizedBox.shrink()
                         : Text(
                             '${controller.profileModel?.fullName ?? ''}',
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
                           ),
-                    SizedBox(height: 5.h),
                     Text(
                       '@${controller.profileModel?.username}',
                       style: TextStyle(
-                        fontSize: 11.sp,
-                        color: const Color.fromARGB(255, 141, 141, 141),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     ProfileStateictics(widget.id ??
