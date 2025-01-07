@@ -53,7 +53,7 @@ class PostDetails extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                        padding: EdgeInsets.all(15.h),
+                        padding: EdgeInsets.all(10.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey[100],
