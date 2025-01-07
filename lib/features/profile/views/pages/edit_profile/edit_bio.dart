@@ -84,7 +84,9 @@ class _EditBioState extends State<EditBio> {
                       child: Text(
                         "Save",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.sp),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp),
                       ),
                     ),
                   ],

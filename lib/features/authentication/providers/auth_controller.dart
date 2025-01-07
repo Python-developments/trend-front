@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trend/networks/api_repository.dart';
@@ -40,7 +43,9 @@ class AuthController extends GetxController {
     );
     LoginResponse? loginResponse = await apiRepository.login(
         loginUsernameController.text, loginPasswordController.text);
-
+    Get.find<Dio>().options.headers["Authorization"] =
+        'Bearer ${loginResponse?.access}';
+    Get.put<ApiRepository>(ApiRepository(Get.find()));
     if (loginResponse != null) {
       await Get.find<SpHelper>().setToken(loginResponse.access);
       await Get.find<SpHelper>().setUser(loginResponse);

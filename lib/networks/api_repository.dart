@@ -16,6 +16,7 @@ class ApiRepository {
   Future<LoginResponse?> login(String userName, String password) async {
     Response response = await dio.post(ApiEndPoints.login,
         data: {"username": userName, "password": password});
+
     return LoginResponse.fromJson(response.data);
   }
 

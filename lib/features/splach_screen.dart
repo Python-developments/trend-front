@@ -33,7 +33,7 @@ class _SplachScreenState extends State<SplachScreen> {
       body: Center(
           child: Text(
         "T R E N D",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       )),
     );
   }

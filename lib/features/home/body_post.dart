@@ -13,7 +13,7 @@ class BodyPost extends StatelessWidget {
     return Container(
       // constraints: BoxConstraints(maxHeight: 600, minHeight: 100),
       // height: 300,
-      width: Get.height,
+      width: 1000,
       child: postModel?.image != null
           ? CachedNetworkImage(
               imageUrl: postModel?.image ?? '',

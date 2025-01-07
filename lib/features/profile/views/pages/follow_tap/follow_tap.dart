@@ -51,10 +51,13 @@ class _FollowTabsState extends State<FollowTabs>
               },
               child: Icon(Icons.arrow_back_ios_new, color: Colors.black)),
           bottom: TabBar(
+            dividerColor: Colors.grey.withOpacity(0.2),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.black,
             controller: _tabController,
+            indicatorSize: TabBarIndicatorSize.tab,
             tabs: const [
               Tab(text: 'Followers'),
               Tab(text: 'Following'),
@@ -124,19 +127,18 @@ class _FollowTabsState extends State<FollowTabs>
                             }
                           },
                           child: Container(
-                            height: 25.h,
-                            width: 70.w,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 226, 17, 17),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text('Unfollow',
-                                style: TextStyle(
-                                    fontSize: 11.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          ),
+                              height: 25.h,
+                              width: 70.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 226, 17, 17),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text('Unfollow',
+                                  style: TextStyle(
+                                      fontSize: 11.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
                         )
                       : SizedBox.shrink(),
                 );

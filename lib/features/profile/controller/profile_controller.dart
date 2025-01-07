@@ -105,7 +105,7 @@ class ProfileController extends GetxController {
   unFollowUser(int id) async {
     loadingFollow.value = true;
     await apiRepository.unFollowUser(id);
-    await getProfileById(id, false);
+    await getProfileById(Get.find<SpHelper>().getUser()?.userInfo?.id, false);
     loadingFollow.value = false;
   }
 

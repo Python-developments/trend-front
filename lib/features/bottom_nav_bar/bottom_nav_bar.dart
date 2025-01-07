@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,6 +47,14 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
+        if (Get.find<BnbController>().delectedIndex.value == 4) {
+          Get.put<ProfileController>(ProfileController(Get.find()))
+              .getProfileById(Get.find<SpHelper>().getUser()?.userInfo?.id);
+        }
+
+        // Get.find<ProfileController>().profileModel = null;
+        // Get.find<ProfileController>().userPosts = null;
+        // Get.find<ProfileController>().update();
         return IndexedStack(
           index: Get.find<BnbController>().delectedIndex.value,
           children: _pages,

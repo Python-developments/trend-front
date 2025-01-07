@@ -240,25 +240,33 @@ class _MyProfileState extends State<MyProfile> {
                             ),
                           ),
                     SizedBox(height: 10.h),
-                    Wrap(
-                      spacing: 1.0, // Horizontal space between items
-                      runSpacing: 1.0, // Vertical space between rows
-                      children: List.generate(
-                        controller.userPosts?.length ?? 0, // Number of photos
-                        (index) => Container(
-                          width: (MediaQuery.of(context).size.width - 5) / 3,
-                          height: (MediaQuery.of(context).size.width - 5) /
-                              3, // Keep height the same for square shape
-                          color: Colors.grey,
-                          child: CustomCachedImageWidget(
-                            errorWidget: Icon(Icons.broken_image),
-                            radius: 0,
-                            size: ((MediaQuery.of(context).size.width - 5) / 3),
-                            imageUrl: controller.userPosts?[index].image ?? '',
-                          ),
-                        ),
-                      ),
-                    ),
+                    GridView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 1,
+                            crossAxisSpacing: 1),
+                        itemCount: controller.userPosts?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              // Get.to("/userposts", extra: {
+                              //   "index": index,
+                              //   "posts": widget.profile.posts.items,
+                              //   "userId": widget.profile.id
+                              // });
+                            },
+                            child: CustomCachedImageWidget(
+                              imageUrl:
+                                  controller.userPosts?[index].image ?? '',
+                              size: 10,
+                              radius: 0,
+                              errorWidget: Icon(Icons.broken_image),
+                            ),
+                          );
+                        })
                   ],
                 ),
               ),

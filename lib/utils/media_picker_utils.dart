@@ -140,6 +140,7 @@ class MediaPickerUtils {
               children: <Widget>[
                 SizedBox(height: 8.sp),
                 ListTile(
+                  contentPadding: EdgeInsets.zero,
                   dense: true,
                   leading: Transform.scale(
                     scale: 1.2.sp,
@@ -147,14 +148,12 @@ class MediaPickerUtils {
                       ImgAssets.addIconSVG,
                       width: 13.sp,
                       height: 13.sp,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).textTheme.displayLarge!.color!,
-                          BlendMode.srcIn),
+                      color: Colors.black,
                     ),
                   ),
                   title: Text(
                     'Take a photo',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(fontSize: 14.sp, color: Colors.black),
                   ),
                   onTap: () async {
                     final file =
@@ -170,18 +169,20 @@ class MediaPickerUtils {
                   ),
                 ),
                 ListTile(
+                  contentPadding: EdgeInsets.zero,
                   dense: true,
                   leading: SvgPicture.asset(
                     ImgAssets.gallery2IconSVG,
                     width: 13.sp,
                     height: 13.sp,
+                    color: Colors.black,
                     colorFilter: ColorFilter.mode(
                         Theme.of(context).textTheme.displayLarge!.color!,
                         BlendMode.srcIn),
                   ),
                   title: Text(
                     'Choose from gallery',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(fontSize: 14.sp, color: Colors.black),
                   ),
                   onTap: () async {
                     final file = await _pickImageFromSource(

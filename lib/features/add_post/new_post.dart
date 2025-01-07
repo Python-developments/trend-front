@@ -162,7 +162,9 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
                             borderRadius: BorderRadius.circular(7.r),
                           ),
                         ),
-                        onPressed: controller.addNewPost,
+                        onPressed: controller.newPostImage == null
+                            ? null
+                            : controller.addNewPost,
                         child: Text(
                           "Save & Share",
                           style: TextStyle(color: Colors.white),
