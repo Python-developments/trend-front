@@ -19,7 +19,7 @@ class CommentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.6 - 33.h,
+      height: Get.height * 0.6 - 20.h,
       child: Column(
         children: [
           // Comments header
@@ -59,9 +59,17 @@ class CommentSheet extends StatelessWidget {
             thickness: 0.1.h,
             height: 1,
           ),
+
+          // Input field with bottom padding when keyboard is hidden
           Padding(
-            padding:
-                EdgeInsets.only(left: 15.w, right: 7.w, bottom: 3.h, top: 5.h),
+            padding: EdgeInsets.only(
+              left: 15.w,
+              right: 7.w,
+              bottom: MediaQuery.of(context).viewInsets.bottom == 0
+                  ? 20.h // Add padding when the keyboard is hidden
+                  : 5.h, // Reduce padding when the keyboard is visible
+              top: 5.h,
+            ),
             child: Row(
               children: [
                 // Avatar on the left of input field
@@ -155,7 +163,6 @@ class _CommentWidgetState extends State<CommentWidget> {
   bool showMore = false;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -245,160 +252,7 @@ class _CommentWidgetState extends State<CommentWidget> {
             ],
           ),
         ),
-        Visibility(
-          visible: ((Get.find<HomeController>()
-                          .posts[widget.postIndex]
-                          .comments[widget.commentIndex]
-                          .replies
-                          ?.length ??
-                      0) !=
-                  0 &&
-              !showMore),
-          child: GestureDetector(
-            onTap: () {
-              showMore = true;
-              setState(() {});
-            },
-            child: Text(
-              "View ${Get.find<HomeController>().posts[widget.postIndex].comments[widget.commentIndex].replies?.length} more replies",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11.sp),
-            ).paddingOnly(left: 50.sp),
-          ),
-        ),
-        SizedBox(
-          height: 10.sp,
-        ),
-        Visibility(
-          visible: showMore,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: widget.comment.replies?.length,
-              itemBuilder: (context, subCommentIndex) {
-                return Padding(
-                  padding: EdgeInsets.only(left: 60, bottom: 15, right: 17),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Avatar
-                      CircleAvatar(
-                        radius: 10,
-                        backgroundImage: AssetImage(
-                            'assets/images/image.png'), // Example image
-                      ),
-                      SizedBox(width: 10.w),
-                      // Username and Comment
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.comment.replies?[subCommentIndex].author ??
-                                  '',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "@" +
-                                      (widget.comment.replies?[subCommentIndex]
-                                              .author ??
-                                          ''),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11.sp,
-                                      color: Colors.blue),
-                                ),
-                                Text(
-                                  widget.comment.replies?[subCommentIndex]
-                                          .content ??
-                                      '',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 11.sp,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.find<HomeController>().likeSubComment(
-                              widget.postIndex,
-                              widget.commentIndex,
-                              subCommentIndex);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              (widget.comment.replies?[subCommentIndex]
-                                          .likedByMe ??
-                                      false)
-                                  ? 'assets/icons/like_fill.svg'
-                                  : 'assets/icons/like.svg',
-                              color: (widget.comment.replies?[subCommentIndex]
-                                          .likedByMe ??
-                                      false)
-                                  ? Colors.red
-                                  : Colors.grey,
-                              height: 12.h,
-                            ),
-                            Text(
-                              " ${widget.comment.replies?[subCommentIndex].likesCount == 0 ? '' : widget.comment.replies?[subCommentIndex].likesCount}",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
-        ),
-        Visibility(
-          visible: (Get.find<HomeController>()
-                      .posts[widget.postIndex]
-                      .comments[widget.commentIndex]
-                      .replies
-                      ?.length !=
-                  0 &&
-              showMore),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showMore = false;
-                  setState(() {});
-                },
-                child: Text(
-                  "Hide replies",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11.sp),
-                ).paddingOnly(left: 50.sp),
-              ),
-              SizedBox(
-                height: 5,
-              )
-            ],
-          ),
-        ),
+        // Additional Replies and Logic Here
       ],
     );
   }
