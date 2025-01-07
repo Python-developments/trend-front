@@ -167,7 +167,7 @@ class _CommentWidgetState extends State<CommentWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
