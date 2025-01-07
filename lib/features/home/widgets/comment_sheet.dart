@@ -74,7 +74,7 @@ class CommentSheet extends StatelessWidget {
                 // Input field
                 Expanded(
                   child: Container(
-                    height: 30.h, // Reduce height to make the input compact
+                    height: 32.h, // Reduce height to make the input compact
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50.0),
                       border: Border.all(
@@ -85,6 +85,8 @@ class CommentSheet extends StatelessWidget {
                     child: TextField(
                       focusNode: Get.find<HomeController>().commentFocusNode,
                       controller: Get.find<HomeController>().commentController,
+                      cursorColor: Colors.black, // Change the cursor color here
+                      cursorHeight: 12.h, // Set the cursor height here
                       decoration: InputDecoration(
                         hintText: "comment...",
                         hintStyle: TextStyle(
