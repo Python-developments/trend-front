@@ -96,7 +96,7 @@ class CommentSheet extends StatelessWidget {
                       cursorColor: Colors.black,
                       cursorHeight: 11.h,
                       decoration: InputDecoration(
-                        hintText: " comment...",
+                        hintText: " Add comment...",
                         hintStyle: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.grey[400],
