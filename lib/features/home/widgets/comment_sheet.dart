@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,24 +71,24 @@ class CommentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.7,
+      height: Get.height * 0.6 - 35,
       child: Column(
         children: [
           // Comments header
-          SizedBox(height: 10.h),
+          SizedBox(height: 5.h),
           Center(
             child: Text(
               'Comments',
               style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 6.h),
+          SizedBox(height: 3.h),
           Divider(
             color: Colors.grey,
             thickness: 0.1,
             height: 5.h,
           ),
-          SizedBox(height: 6.h),
+          // SizedBox(height: 6.h),
 
           // Comments list
           GetBuilder<HomeController>(builder: (controller) {
@@ -130,25 +129,24 @@ class CommentSheet extends StatelessWidget {
           // Thin grey line above text field
           Divider(
             color: Colors.grey,
-            thickness: 0.1,
+            thickness: 0.2,
             height: 1,
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: 16.w, right: 16.w, bottom: 16.h, top: 8.h),
+            padding:
+                EdgeInsets.only(left: 16.w, right: 0.w, bottom: 10.h, top: 8.h),
             child: Row(
               children: [
-                // Avatar on the left of input field
                 CircleAvatar(
-                  radius: 15.h,
-                  backgroundImage: AssetImage('assets/images/image.png'),
+                  radius: 16.h,
+                  backgroundImage: AssetImage('assets/images/dunk.jpg'),
                 ),
                 SizedBox(width: 10.w),
 
                 // Input field
                 Expanded(
                   child: Container(
-                    height: 35.h, // Reduce height to make the input compact
+                    height: 35.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50.0),
                       border: Border.all(
@@ -160,38 +158,51 @@ class CommentSheet extends StatelessWidget {
                       focusNode: Get.find<HomeController>().commentFocusNode,
                       controller: Get.find<HomeController>().commentController,
                       decoration: InputDecoration(
-                        hintText: "comment...",
+                        hintText: " Add comment...",
                         hintStyle: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.grey[400],
                         ),
-                        border: InputBorder.none, // Remove default borders
+                        border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.h, // Reduce vertical padding
-                          horizontal: 16.w, // Add consistent horizontal padding
+                          vertical: 10.h,
+                          horizontal: 16.w,
                         ),
                       ),
                       style: TextStyle(
-                        fontSize: 12.sp, // Match text size with compact height
+                        fontSize: 12.sp,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10.w),
 
                 // Send Button
-                IconButton(
-                  onPressed: () {
-                    if (commentIndex != -1) {
-                      Get.find<HomeController>()
-                          .addCommentOnComments(index, commentIndex);
-                    } else {
-                      Get.find<HomeController>().addComment(index);
-                    }
-                    commentIndex = -1;
-                  },
-                  icon: const Icon(Icons.send),
-                  color: Colors.blue,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 12),
+                  child: Container(
+                    width: 33.w,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50.h),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        if (commentIndex != -1) {
+                          Get.find<HomeController>()
+                              .addCommentOnComments(index, commentIndex);
+                        } else {
+                          Get.find<HomeController>().addComment(index);
+                        }
+                        commentIndex = -1;
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/icons/arrow-up-send.svg',
+                        color: Colors.white,
+                        height: 20.h,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -224,7 +235,7 @@ class _CommentWidgetState extends State<CommentWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -238,8 +249,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                   },
                   child: CircleAvatar(
                     radius: 16,
-                    backgroundImage:
-                        AssetImage('assets/images/image.png'), // Example image
+                    backgroundImage: AssetImage('assets/images/image.png'),
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -280,11 +290,15 @@ class _CommentWidgetState extends State<CommentWidget> {
                                   color: (widget.comment.likedByMe ?? false)
                                       ? Colors.red
                                       : Colors.grey,
-                                  height: 12.h,
+                                  height: 10.h,
+                                  // Add extra thickness if the color is grey
                                 ),
                                 Text(
                                   "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
-                                  style: TextStyle(color: Colors.grey),
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
@@ -306,7 +320,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 12)),
+                                    fontSize: 10.sp)),
                           ),
                         ],
                       ),
@@ -330,14 +344,25 @@ class _CommentWidgetState extends State<CommentWidget> {
                 showMore = true;
                 setState(() {});
               },
-              child: Text(
-                "View ${Get.find<HomeController>().posts[widget.postIndex].comments[widget.commentIndex].replies?.length} more replies",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.sp),
-              ).paddingOnly(left: 50.sp),
+              child: Row(
+                children: [
+                  Container(
+                    width: 15.sp, // Set the desired width for the divider
+                    height: 0.3.h, // Match the thickness of the divider
+                    color: const Color.fromARGB(
+                        255, 110, 110, 110), // Divider color
+                  ).paddingOnly(left: 55.sp),
+                  Text(
+                    "View ${Get.find<HomeController>().posts[widget.postIndex].comments[widget.commentIndex].replies?.length} replies",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.5.sp,
+                    ),
+                  ).paddingOnly(left: 5.sp), // Reduced padding for alignment
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -357,9 +382,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                       children: [
                         // Avatar
                         CircleAvatar(
-                          radius: 10,
+                          radius: 12.w,
                           backgroundImage: AssetImage(
-                              'assets/images/image.png'), // Example image
+                              'assets/images/aziz.jpg'), // Example image
                         ),
                         SizedBox(width: 10.w),
                         // Username and Comment
@@ -428,12 +453,14 @@ class _CommentWidgetState extends State<CommentWidget> {
                                         false)
                                     ? Colors.red
                                     : Colors.grey,
-                                height: 12.h,
+                                height: 10.h,
                               ),
                               Text(
                                 " ${widget.comment.replies?[subCommentIndex].likesCount == 0 ? '' : widget.comment.replies?[subCommentIndex].likesCount}",
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
