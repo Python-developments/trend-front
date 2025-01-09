@@ -56,13 +56,13 @@ class ExploreTagsTab extends StatelessWidget {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.find<ExploreController>()
-                              .pageController
-                              .animateToPage(2,
-                                  duration: Duration(milliseconds: 100),
-                                  curve: Curves.linear);
-                        },
+                        // onTap: () {
+                        //   Get.find<ExploreController>()
+                        //       .pageController
+                        //       .animateToPage(2,
+                        //           duration: Duration(milliseconds: 100),
+                        //           curve: Curves.linear);
+                        // },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 0.w),
                           height: 170.h,
@@ -78,13 +78,13 @@ class ExploreTagsTab extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          height: 150,
-                          child: TrendingPosts()),
-                      Divider(
-                        color: Colors.grey[200],
-                      ),
+                      // Container(
+                      //     margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      //     height: 150,
+                      //     child: TrendingPosts()),
+                      // Divider(
+                      //   color: Colors.grey[200],
+                      // ),
                       SizedBox(
                         height: 5.sp,
                       ),

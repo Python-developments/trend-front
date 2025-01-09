@@ -32,8 +32,8 @@ class _SplachScreenState extends State<SplachScreen> {
     return Scaffold(
       body: Center(
           child: Text(
-        "T R E N D",
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        "T  R  E  N  D",
+        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       )),
     );
   }

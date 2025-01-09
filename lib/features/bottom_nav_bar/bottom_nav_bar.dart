@@ -73,22 +73,22 @@ class _MainScreenState extends State<MainScreen> {
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 0,
                   child: SvgPicture.asset(
-                    'assets/icons/home_icon.svg',
-                    height: 20.5.h, // Icon size
+                    'assets/icons/home3.svg',
+                    height: 19.h, // Icon size
                     color: Get.find<BnbController>().delectedIndex.value == 0
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 1,
                   child: SvgPicture.asset(
-                    'assets/icons/search.svg',
-                    height: 20.5.h,
+                    'assets/icons/search1.svg',
+                    height: 19.h,
                     color: Get.find<BnbController>().delectedIndex.value == 1
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
@@ -96,32 +96,33 @@ class _MainScreenState extends State<MainScreen> {
                       Get.find<BnbController>().delectedIndex.value = 2,
                   child: SvgPicture.asset(
                     'assets/icons/plus-circle.svg',
-                    height: 20.5.h,
+                    height: 19.h,
                     color: Get.find<BnbController>().delectedIndex.value == 2
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 3,
                   child: SvgPicture.asset(
-                    'assets/icons/bell.svg',
-                    height: 20.5.h,
+                    'assets/icons/notifications.svg',
+                    height: 17.h,
                     color: Get.find<BnbController>().delectedIndex.value == 3
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 4,
-                  child: SvgPicture.asset(
-                    'assets/icons/person.svg',
-                    height: 20.5.h,
-                    color: Get.find<BnbController>().delectedIndex.value == 4
-                        ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/desert.jpg',
+                      height: 20.h,
+                      width: 20.h,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],
