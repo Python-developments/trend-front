@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Removes the back button
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Align(
@@ -24,24 +24,25 @@ class HomePage extends StatelessWidget {
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: Container(
-                height: 37,
-                width: 37,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.2,
-                        color: const Color.fromARGB(255, 160, 160, 160)),
-                    color: const Color.fromARGB(255, 251, 251, 251),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset('assets/icons/chat.svg'),
-                )),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 15.0),
+        //     // child: Container(
+        //     //     height: 37,
+        //     //     width: 37,
+        //     //     decoration: BoxDecoration(
+        //     //         border: Border.all(
+        //     //             width: 0.2,
+        //     //             color: const Color.fromARGB(255, 160, 160, 160)),
+        //     //         color: const Color.fromARGB(255, 251, 251, 251),
+        //     //         borderRadius: BorderRadius.circular(20)),
+        //     //     child: Padding(
+        //     //       padding: const EdgeInsets.all(10.0),
+        //     //       child: SvgPicture.asset('assets/icons/chat.svg'),
+        //     //     )),
+        //   ),
+
+        // ],
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
@@ -57,7 +58,6 @@ class HomePage extends StatelessWidget {
               builder: (controller) {
                 return Expanded(
                   child: ListView.builder(
-                    // addAutomaticKeepAlives: true,
                     controller: controller.scrollController,
                     itemCount: controller.posts.length,
                     itemBuilder: (context, index) {
