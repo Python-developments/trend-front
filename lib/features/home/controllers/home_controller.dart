@@ -105,6 +105,7 @@ class HomeController extends GetxController {
     if (commentController.text != "") {
       Post postModel = posts[index];
       postModel.comments.add(Comment(
+          createdAt: DateTime.now(),
           content: commentController.text,
           author: Get.find<SpHelper>().getUser()?.userInfo?.username));
       postModel.commentsCount++;
@@ -129,6 +130,7 @@ class HomeController extends GetxController {
     log(postId.toString());
     log(commentId.toString());
     Comment commentModel = Comment(
+      createdAt: DateTime.now(),
       author: Get.find<SpHelper>().getUser()?.userInfo?.username,
       content:
           commentController.text.substring(commentController.text.indexOf(" ")),

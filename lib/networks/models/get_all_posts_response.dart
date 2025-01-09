@@ -122,7 +122,7 @@ class Comment {
   int? post;
   String? author;
   String? content;
-  String? createdAt;
+  late DateTime createdAt;
   String? updatedAt;
   late int likesCount;
   int? repliesCount;
@@ -136,7 +136,7 @@ class Comment {
       this.post,
       this.author,
       this.content,
-      this.createdAt,
+      required this.createdAt,
       this.updatedAt,
       this.likesCount = 0,
       this.repliesCount,
@@ -151,7 +151,7 @@ class Comment {
     post = json['post'];
     author = json['author'];
     content = json['content'];
-    createdAt = json['created_at'];
+    createdAt = DateTime.parse(json['created_at'] ?? '');
     updatedAt = json['updated_at'];
     likesCount = json['likes_count'];
     repliesCount = json['replies_count'];

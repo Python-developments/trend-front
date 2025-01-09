@@ -36,24 +36,23 @@ class _PostsPageState extends State<PostsUserPage> {
   Widget build(BuildContext context) {
     List<Post> posts = widget.posts;
     return Scaffold(
-      body: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'T  R  E  N  D',
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'T  R  E  N  D',
+            style: TextStyle(
+              fontSize: 15.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          body: ScrollablePositionedList.builder(
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      body: ScrollablePositionedList.builder(
               itemCount: posts.length,
               itemBuilder: (context, index) => PostWidget(
                     isprofilePost: true,
@@ -61,7 +60,8 @@ class _PostsPageState extends State<PostsUserPage> {
                     postModel: posts[index],
                     function: () {},
                   ),
-              initialScrollIndex: widget.index)),
+              initialScrollIndex: widget.index)
+          .paddingOnly(bottom: 15.sp),
     );
   }
 }
