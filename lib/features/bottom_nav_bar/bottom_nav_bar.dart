@@ -73,11 +73,11 @@ class _MainScreenState extends State<MainScreen> {
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 0,
                   child: SvgPicture.asset(
-                    'assets/icons/home_icon.svg',
+                    'assets/icons/home1.svg',
                     height: 20.5.h, // Icon size
                     color: Get.find<BnbController>().delectedIndex.value == 0
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
@@ -85,10 +85,10 @@ class _MainScreenState extends State<MainScreen> {
                       Get.find<BnbController>().delectedIndex.value = 1,
                   child: SvgPicture.asset(
                     'assets/icons/search.svg',
-                    height: 20.5.h,
+                    height: 20.h,
                     color: Get.find<BnbController>().delectedIndex.value == 1
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
@@ -99,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 20.5.h,
                     color: Get.find<BnbController>().delectedIndex.value == 2
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 20.5.h,
                     color: Get.find<BnbController>().delectedIndex.value == 3
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
                 GestureDetector(
@@ -121,7 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 20.5.h,
                     color: Get.find<BnbController>().delectedIndex.value == 4
                         ? Color(AppColors.black)
-                        : Color(AppColors.greyDark),
+                        : Color(AppColors.black),
                   ),
                 ),
               ],

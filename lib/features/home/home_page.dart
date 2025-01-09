@@ -21,9 +21,7 @@ class HomePage extends StatelessWidget {
           child: Text(
             'T  R  E  N  D',
             style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
         actions: [

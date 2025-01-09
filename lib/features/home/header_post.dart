@@ -39,7 +39,7 @@ class HeaderPost extends StatelessWidget {
     bool isMe =
         postModel?.autherId == Get.find<SpHelper>().getUser()?.userInfo?.id;
     return Padding(
-      padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 7),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -110,7 +110,7 @@ class HeaderPost extends StatelessWidget {
               ? SizedBox.shrink()
               : Column(
                   children: [
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 2.h),
                     Text(
                       postModel?.description ?? '',
                       style: TextStyle(fontWeight: FontWeight.w500),
