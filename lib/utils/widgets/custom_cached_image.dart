@@ -59,28 +59,35 @@ class CustomCachedImageWidget extends StatelessWidget {
                         File(fileUrl!),
                         fit: BoxFit.cover,
                       )
-                    : CachedNetworkImage(
-                        imageUrl: imageUrl ?? '',
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, error) {
-                          return errorWidget ??
-                              Container(
-                                // padding: EdgeInsets.all(5.sp),
-                                child: SvgPicture.asset(
-                                  'assets/icons/default_avatar.svg',
-                                ),
-                              );
-                        },
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Theme.of(context).highlightColor,
-                          highlightColor: Theme.of(context).dividerColor,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            color: Colors.white,
+                    : (imageUrl?.isEmpty ?? true)
+                        ? Container(
+                            // padding: EdgeInsets.all(5.sp),
+                            child: SvgPicture.asset(
+                              'assets/icons/default_avatar.svg',
+                            ),
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: imageUrl ?? '',
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) {
+                              return errorWidget ??
+                                  Container(
+                                    // padding: EdgeInsets.all(5.sp),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/default_avatar.svg',
+                                    ),
+                                  );
+                            },
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Theme.of(context).highlightColor,
+                              highlightColor: Theme.of(context).dividerColor,
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
               ),
             ),
           ),

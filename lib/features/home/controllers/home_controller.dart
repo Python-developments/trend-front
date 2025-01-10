@@ -102,7 +102,7 @@ class HomeController extends GetxController {
   }
 
   addComment(int index) {
-    if (commentController.text != "") {
+    if (commentController.text.trim() != "") {
       Post postModel = posts[index];
       postModel.comments.add(Comment(
           createdAt: DateTime.now(),
@@ -123,23 +123,27 @@ class HomeController extends GetxController {
   }
 
   addCommentOnComments(int index, int commentIndex) async {
-    Post post = posts[index];
-    int postId = post.id ?? 0;
-    Comment comment = post.comments[commentIndex];
-    int commentId = comment.id ?? 0;
-    log(postId.toString());
-    log(commentId.toString());
-    Comment commentModel = Comment(
-      createdAt: DateTime.now(),
-      author: Get.find<SpHelper>().getUser()?.userInfo?.username,
-      content:
-          commentController.text.substring(commentController.text.indexOf(" ")),
-    );
-    posts[index].comments[commentIndex].replies?.add(commentModel);
-    await apiRepository.commentComment(
-        postId: postId, commentId: commentId, comment: commentController.text);
-    commentController.clear();
-    update();
+    if (commentController.text.trim() != "") {
+      Post post = posts[index];
+      int postId = post.id ?? 0;
+      Comment comment = post.comments[commentIndex];
+      int commentId = comment.id ?? 0;
+      log(postId.toString());
+      log(commentId.toString());
+      Comment commentModel = Comment(
+        createdAt: DateTime.now(),
+        author: Get.find<SpHelper>().getUser()?.userInfo?.username,
+        content: commentController.text
+            .substring(commentController.text.indexOf(" ")),
+      );
+      posts[index].comments[commentIndex].replies?.add(commentModel);
+      await apiRepository.commentComment(
+          postId: postId,
+          commentId: commentId,
+          comment: commentController.text);
+      commentController.clear();
+      update();
+    }
   }
 
   deleteMyComent(int postIndex, int commentIndex, int postId, int commentId) {
