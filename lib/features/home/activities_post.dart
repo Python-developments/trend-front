@@ -55,7 +55,6 @@ class ActivitiesPost extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    Get.find<HomeController>().addLestnerOnCommentController();
                     await showModalBottomSheet(
                       context: context,
                       isScrollControlled:
@@ -73,7 +72,7 @@ class ActivitiesPost extends StatelessWidget {
                         );
                       },
                     );
-                    Get.find<HomeController>().disploseListener();
+                    Get.find<HomeController>().commentController.clear();
                   },
                   child: Text(
                     " ${postModel.commentsCount == 0 ? '' : postModel.commentsCount}${postModel.commentsCount <= 1 ? ' comment' : ' comments'}",

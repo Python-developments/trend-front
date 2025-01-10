@@ -147,102 +147,121 @@ class CommentSheet extends StatelessWidget {
                 SizedBox(width: 10.w),
 
                 // Input field
-                Obx(() {
-                  return Expanded(
-                      child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 234, 234, 234),
-                        width: 1.5,
-                      ),
-                    ),
-                    // height: 37.h,
-                    child: TextField(
-                      focusNode: Get.find<HomeController>().commentFocusNode,
-                      controller: Get.find<HomeController>().commentController,
-                      textAlignVertical:
-                          TextAlignVertical.center, // Align text vertically
-                      cursorColor:
-                          Colors.lightGreen, // Light green cursor color
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                      ),
-                      // maxLines: 1, // Restrict to a single line
-                      decoration: InputDecoration(
-                        suffixIcon:
-                            Get.find<HomeController>().emptyComment.value
-                                ? SizedBox()
-                                : Container(
-                                    margin: EdgeInsets.all(5),
-                                    width: 33.w,
-                                    height: 30.h,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(50.h),
-                                    ),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        if (commentIndex != -1) {
-                                          Get.find<HomeController>()
-                                              .addCommentOnComments(
-                                                  index, commentIndex);
-                                        } else {
-                                          Get.find<HomeController>()
-                                              .addComment(index);
-                                        }
-                                        commentIndex = -1;
-                                      },
-                                      icon: SvgPicture.asset(
-                                        'assets/icons/arrow-up-send.svg',
-                                        color: Colors.white,
-                                        height: 20.h,
-                                      ),
-                                    ),
-                                  ),
-                        hintText: "add comment ...",
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15.w,
-                        ), // Adjust padding
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.sp,
+
+                Expanded(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 234, 234, 234),
+                            width: 1.5,
+                          ),
                         ),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                            borderSide: BorderSide(
-                              color: Colors.grey
-                                  .withOpacity(0.5), // Gray border color
-                              width: 0.4,
-                            )),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                            borderSide: BorderSide(
-                              color: Colors.grey
-                                  .withOpacity(0.5), // Gray border color
-                              width: 0.4,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                            borderSide: BorderSide(
-                              color: Colors.grey
-                                  .withOpacity(0.5), // Gray border color
-                              width: 0.4,
-                            )),
-                      ),
-                    ),
-                  ));
-                }),
+                        // height: 37.h,
+                        child: CommentTextfield(
+                            commentIndex, index, setCommentIndex)))
 
                 // Send Button
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CommentTextfield extends StatefulWidget {
+  int commentIndex;
+  int index;
+  Function setCommentIndex;
+  CommentTextfield(this.commentIndex, this.index, this.setCommentIndex);
+
+  @override
+  State<CommentTextfield> createState() => _CommentTextfieldState();
+}
+
+class _CommentTextfieldState extends State<CommentTextfield> {
+  bool emptyText = true;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return TextField(
+      onChanged: (x) {
+        if (x.trim().isEmpty) {
+          emptyText = true;
+          setState(() {});
+        } else {
+          emptyText = false;
+          setState(() {});
+        }
+      },
+      focusNode: Get.find<HomeController>().commentFocusNode,
+      controller: Get.find<HomeController>().commentController,
+      textAlignVertical: TextAlignVertical.center, // Align text vertically
+      cursorColor: Colors.lightGreen, // Light green cursor color
+      style: TextStyle(
+        fontSize: 12.sp,
+      ),
+      // maxLines: 1, // Restrict to a single line
+      decoration: InputDecoration(
+        suffixIcon: emptyText
+            ? SizedBox()
+            : Container(
+                margin: EdgeInsets.all(5),
+                width: 33.w,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(50.h),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    if (widget.commentIndex != -1) {
+                      Get.find<HomeController>().addCommentOnComments(
+                          widget.index, widget.commentIndex);
+                    } else {
+                      Get.find<HomeController>().addComment(widget.index);
+                    }
+                    widget.setCommentIndex(-1);
+                  },
+                  icon: SvgPicture.asset(
+                    'assets/icons/arrow-up-send.svg',
+                    color: Colors.white,
+                    height: 20.h,
+                  ),
+                ),
+              ),
+        hintText: "add comment ...",
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 15.w,
+        ), // Adjust padding
+        hintStyle: TextStyle(
+          color: Colors.grey,
+          fontSize: 12.sp,
+        ),
+        fillColor: Colors.white,
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.5), // Gray border color
+              width: 0.4,
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.5), // Gray border color
+              width: 0.4,
+            )),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.5), // Gray border color
+              width: 0.4,
+            )),
       ),
     );
   }
