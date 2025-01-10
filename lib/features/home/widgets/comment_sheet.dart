@@ -330,9 +330,6 @@ class _CommentWidgetState extends State<CommentWidget> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // SizedBox(
-                          //   width: 10,
-                          // ),
                           GestureDetector(
                             onTap: () {
                               widget.function(widget.commentIndex);
@@ -346,7 +343,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 10.5.sp)),
+                                    fontSize: 10.sp)),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -420,7 +417,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
+                      fontSize: 11.sp,
                     ),
                   ).paddingOnly(left: 5.sp), // Reduced padding for alignment
                 ],
@@ -553,7 +550,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
+                      fontSize: 11.sp,
                     ),
                   ).paddingOnly(left: 50.sp),
                 ),
