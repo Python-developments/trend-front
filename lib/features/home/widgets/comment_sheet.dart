@@ -71,6 +71,9 @@ class CommentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: MediaQuery.of(context).viewInsets.bottom > 0
+          ? EdgeInsets.zero
+          : EdgeInsets.only(bottom: 15.sp),
       height: Get.height * 0.6 - 35,
       child: Column(
         children: [
@@ -88,7 +91,7 @@ class CommentSheet extends StatelessWidget {
             thickness: 0.1,
             height: 5.h,
           ),
-          // SizedBox(height: 6.h),
+          SizedBox(height: 10.h),
 
           // Comments list
           GetBuilder<HomeController>(builder: (controller) {
@@ -145,36 +148,65 @@ class CommentSheet extends StatelessWidget {
 
                 // Input field
                 Expanded(
-                  child: Container(
-                    height: 35.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 234, 234, 234),
-                        width: 1.5,
-                      ),
-                    ),
-                    child: TextField(
-                      focusNode: Get.find<HomeController>().commentFocusNode,
-                      controller: Get.find<HomeController>().commentController,
-                      decoration: InputDecoration(
-                        hintText: " Add comment...",
-                        hintStyle: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[400],
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                          horizontal: 16.w,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                      ),
+                    child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 234, 234, 234),
+                      width: 1.5,
                     ),
                   ),
-                ),
+                  // height: 37.h,
+                  child: TextField(
+                    minLines: 1,
+                    maxLines: 2,
+                    keyboardType: TextInputType.multiline,
+                    focusNode: Get.find<HomeController>().commentFocusNode,
+                    controller: Get.find<HomeController>().commentController,
+                    textAlignVertical:
+                        TextAlignVertical.center, // Align text vertically
+                    cursorColor: Colors.lightGreen, // Light green cursor color
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                    ),
+                    // maxLines: 1, // Restrict to a single line
+                    decoration: InputDecoration(
+                      hintText: "add comment ...",
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15.w,
+                      ), // Adjust padding
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12.sp,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide: BorderSide(
+                            color: Colors.grey
+                                .withOpacity(0.5), // Gray border color
+                            width: 0.4,
+                          )),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide: BorderSide(
+                            color: Colors.grey
+                                .withOpacity(0.5), // Gray border color
+                            width: 0.4,
+                          )),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide: BorderSide(
+                            color: Colors.grey
+                                .withOpacity(0.5), // Gray border color
+                            width: 0.4,
+                          )),
+                    ),
+                  ),
+                )),
 
                 // Send Button
                 Padding(
@@ -224,10 +256,26 @@ class CommentWidget extends StatefulWidget {
   State<CommentWidget> createState() => _CommentWidgetState();
 }
 
+String getTimeAgoShort(DateTime createdAt) {
+  final currentTime = DateTime.now();
+  final difference = currentTime.difference(createdAt);
+
+  if (difference.inDays > 0) {
+    return '${difference.inDays}d'; // e.g. "1 d"
+  } else if (difference.inHours > 0) {
+    return '${difference.inHours}h'; // e.g. "5 h"
+  } else if (difference.inMinutes > 0) {
+    return '${difference.inMinutes}m'; // e.g. "10 m"
+  } else {
+    return '${difference.inSeconds}s'; // e.g. "30 s"
+  }
+}
+
 class _CommentWidgetState extends State<CommentWidget> {
   bool showMore = false;
   @override
   Widget build(BuildContext context) {
+    String timeAgo = getTimeAgoShort(widget.comment.createdAt);
     // TODO: implement build
     return Container(
       color: Colors.white,
@@ -235,7 +283,7 @@ class _CommentWidgetState extends State<CommentWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+            padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 16.w),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -258,20 +306,13 @@ class _CommentWidgetState extends State<CommentWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.comment.author ?? '',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
                       Row(
                         children: [
                           Text(
-                            widget.comment.content ?? '',
+                            widget.comment.author ?? '',
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11.sp,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           const Spacer(),
@@ -280,7 +321,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                               Get.find<HomeController>().likeSubComment(
                                   widget.postIndex, widget.commentIndex);
                             },
-                            child: Column(
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
@@ -291,7 +332,11 @@ class _CommentWidgetState extends State<CommentWidget> {
                                       ? Colors.red
                                       : Colors.grey,
                                   height: 10.h,
-                                  // Add extra thickness if the color is grey
+                                ),
+                                SizedBox(
+                                  width: (widget.comment.likedByMe ?? false)
+                                      ? 4
+                                      : 10,
                                 ),
                                 Text(
                                   "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
@@ -306,6 +351,21 @@ class _CommentWidgetState extends State<CommentWidget> {
                         ],
                       ),
                       Row(
+                        children: [
+                          Text(
+                            widget.comment.content ?? '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           GestureDetector(
                             onTap: () {
@@ -329,6 +389,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            height: 8,
           ),
           Visibility(
             visible: ((Get.find<HomeController>()
@@ -356,9 +419,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                     "View ${Get.find<HomeController>().posts[widget.postIndex].comments[widget.commentIndex].replies?.length} replies",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.5.sp,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11.sp,
                     ),
                   ).paddingOnly(left: 5.sp), // Reduced padding for alignment
                 ],
@@ -489,9 +552,10 @@ class _CommentWidgetState extends State<CommentWidget> {
                     "Hide replies",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11.sp),
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11.sp,
+                    ),
                   ).paddingOnly(left: 50.sp),
                 ),
                 SizedBox(

@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 0,
                   child: SvgPicture.asset(
-                    'assets/icons/home_icon.svg',
+                    'assets/icons/home2.svg',
                     height: 19.h, // Icon size
                     color: Get.find<BnbController>().delectedIndex.value == 0
                         ? Color(AppColors.black)
@@ -84,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                   onTap: () =>
                       Get.find<BnbController>().delectedIndex.value = 1,
                   child: SvgPicture.asset(
-                    'assets/icons/search.svg',
+                    'assets/icons/search1.svg',
                     height: 19.h,
                     color: Get.find<BnbController>().delectedIndex.value == 1
                         ? Color(AppColors.black)

@@ -76,12 +76,11 @@ class _MyProfileState extends State<MyProfile> {
                         ? Row(
                             children: [
                               SizedBox(width: 30.w),
-                              Container(
-                                width: 145.w,
-                                height: 28.h,
-                                child: Expanded(
-                                  child: Obx(() {
-                                    return ElevatedButton(
+                              Expanded(
+                                child: Obx(() {
+                                  return SizedBox(
+                                    height: 28.h,
+                                    child: ElevatedButton(
                                       onPressed: () {
                                         if (controller
                                                 .profileModel?.isFollowByMe ??
@@ -121,15 +120,14 @@ class _MyProfileState extends State<MyProfile> {
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                    );
-                                  }),
-                                ),
+                                    ),
+                                  );
+                                }),
                               ),
                               SizedBox(width: 10.w),
-                              Container(
-                                width: 145.w,
-                                height: 28.h,
-                                child: Expanded(
+                              Expanded(
+                                child: SizedBox(
+                                  height: 28.h,
                                   child: OutlinedButton(
                                     onPressed: () {},
                                     style: OutlinedButton.styleFrom(

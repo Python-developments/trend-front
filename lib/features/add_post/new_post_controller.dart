@@ -44,7 +44,8 @@ class NewPostController extends GetxController {
         changeHeigh = true;
       }
 
-      newPostImage = await cropImage(pickedImage, changeHeigh);
+      newPostImage =
+          (await cropImage(pickedImage, changeHeigh)) ?? newPostImage;
       update();
       await Future.delayed(Duration(milliseconds: 200));
       _scrollToEnd();
@@ -60,21 +61,17 @@ class NewPostController extends GetxController {
     );
   }
 
-  Future<File> cropImage(XFile pickedFile, [bool changeHeigh = false]) async {
+  Future<File?> cropImage(XFile pickedFile, [bool changeHeigh = false]) async {
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: pickedFile.path,
       compressFormat: ImageCompressFormat.jpg,
       compressQuality: 100,
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: 'Cropper',
-          lockAspectRatio: false,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio4x3,
-          ],
-        ),
+            toolbarTitle: '',
+            lockAspectRatio: true,
+            hideBottomControls: true,
+            activeControlsWidgetColor: Colors.transparent),
         IOSUiSettings(
             title: 'Cropper',
             cropStyle: CropStyle.rectangle,
@@ -97,7 +94,7 @@ class NewPostController extends GetxController {
     if (croppedFile != null) {
       return File(croppedFile.path);
     }
-    return File(pickedFile.path);
+    return null;
   }
 
   RxBool isLoading = false.obs;
@@ -112,6 +109,7 @@ class NewPostController extends GetxController {
         imageWidth,
         multipartFile);
     log(post.toJson().toString());
+    FocusScope.of(Get.context!).unfocus();
     isLoading.value = false;
     newPostImage = null;
     contentController.clear();

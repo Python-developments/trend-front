@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
 import 'package:trend/features/home/widgets/post_details.dart';
 import 'package:trend/features/profile/views/pages/my_profile/my_profile.dart';
 import 'package:trend/networks/models/get_all_posts_response.dart';
@@ -111,9 +112,30 @@ class HeaderPost extends StatelessWidget {
               : Column(
                   children: [
                     SizedBox(height: 2.h),
-                    Text(
+                    ReadMoreText(
                       postModel?.description ?? '',
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: isArabicPost ? "sfarabic" : "Inter",
+                      ),
+                      trimMode: TrimMode.Line,
+                      delimiter: " ... ",
+                      delimiterStyle: TextStyle(color: Colors.grey),
+                      trimLines: 2,
+                      textAlign:
+                          isArabicPost ? TextAlign.right : TextAlign.left,
+                      trimCollapsedText: isArabicPost ? 'المزيد' : ' more',
+                      trimExpandedText: isArabicPost ? ' أقل' : ' less',
+                      lessStyle: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                      moreStyle: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                      textDirection:
+                          isArabicPost ? TextDirection.rtl : TextDirection.ltr,
                     ),
                   ],
                 ),
