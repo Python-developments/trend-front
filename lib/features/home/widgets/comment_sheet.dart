@@ -208,12 +208,12 @@ class _CommentTextfieldState extends State<CommentTextfield> {
                   borderRadius: BorderRadius.circular(50.h),
                 ),
                 child: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (Get.find<HomeController>().commentIndex != -1) {
-                      Get.find<HomeController>()
+                      await Get.find<HomeController>()
                           .addCommentOnComments(widget.index);
                     } else {
-                      Get.find<HomeController>().addComment(widget.index);
+                      await Get.find<HomeController>().addComment(widget.index);
                     }
                     Get.find<HomeController>().setCommentIndex(-1);
                   },

@@ -152,10 +152,10 @@ class ApiRepository {
     return true;
   }
 
-  Future<bool> commentPost(int id, String comment) async {
-    await dio.post(ApiEndPoints.commentPost(id),
+  Future<Comment> commentPost(int id, String comment) async {
+    Response res = await dio.post(ApiEndPoints.commentPost(id),
         data: {"post": id, "content": comment});
-    return true;
+    return Comment.fromJson(res.data);
   }
 
   Future<bool> deleteComment(int id, int commentId) async {
@@ -163,13 +163,14 @@ class ApiRepository {
     return true;
   }
 
-  Future<bool> commentComment(
+  Future<Comment> commentComment(
       {required int postId,
       required int commentId,
       required String comment}) async {
-    await dio.post(ApiEndPoints.addCommentOnComment(commentId),
+    Response response = await dio.post(
+        ApiEndPoints.addCommentOnComment(commentId),
         data: {"post": postId, "content": comment});
-    return true;
+    return Comment.fromJson(response.data);
   }
 
   Future<bool> likeComment(int id) async {

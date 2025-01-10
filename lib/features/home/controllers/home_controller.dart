@@ -105,17 +105,14 @@ class HomeController extends GetxController {
     apiRepository.likeComment(commentModel.id!);
   }
 
-  addComment(int index) {
+  addComment(int index) async {
     if (commentController.text.trim() != "") {
       Post postModel = posts[index];
-      postModel.comments.add(Comment(
-          createdAt: DateTime.now(),
-          content: commentController.text,
-          author: Get.find<SpHelper>().getUser()?.userInfo?.username));
+      Comment comment = await apiRepository.commentPost(
+          postModel.id!, commentController.text);
+      postModel.comments.add(comment);
       postModel.commentsCount++;
-
       update();
-      apiRepository.commentPost(postModel.id!, commentController.text);
       commentController.clear();
     }
   }
@@ -132,19 +129,13 @@ class HomeController extends GetxController {
       int postId = post.id ?? 0;
       Comment comment = post.comments[commentIndex];
       int commentId = comment.id ?? 0;
-      log(postId.toString());
-      log(commentId.toString());
-      Comment commentModel = Comment(
-        createdAt: DateTime.now(),
-        author: Get.find<SpHelper>().getUser()?.userInfo?.username,
-        content: commentController.text
-            .substring(commentController.text.indexOf(" ")),
-      );
-      posts[index].comments[commentIndex].replies?.add(commentModel);
-      await apiRepository.commentComment(
+
+      Comment commentModel = await apiRepository.commentComment(
           postId: postId,
           commentId: commentId,
           comment: commentController.text);
+      log(commentIndex.toString());
+      posts[index].comments[commentIndex].replies?.add(commentModel);
       commentController.clear();
       update();
     }
