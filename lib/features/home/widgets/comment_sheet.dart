@@ -286,6 +286,22 @@ String getTimeAgoShort(DateTime createdAt) {
 
 class _CommentWidgetState extends State<CommentWidget> {
   bool showMore = false;
+  String getMentionedNamae(String content) {
+    int firstSpaceIndex = content.indexOf(" ");
+    if (firstSpaceIndex == -1) {
+      return content;
+    }
+    return content.substring(0, firstSpaceIndex);
+  }
+
+  String getWithoutMentionedNamae(String content) {
+    int firstSpaceIndex = content.indexOf(" ");
+    if (firstSpaceIndex == -1) {
+      return content;
+    }
+    return content.substring(firstSpaceIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     String timeAgo = getTimeAgoShort(widget.comment.createdAt);
@@ -497,24 +513,22 @@ class _CommentWidgetState extends State<CommentWidget> {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: "@" +
-                                          (widget
-                                                  .comment
-                                                  .replies?[subCommentIndex]
-                                                  .author ??
-                                              '') +
-                                          " ",
+                                      text: getMentionedNamae(widget
+                                              .comment
+                                              .replies?[subCommentIndex]
+                                              .content ??
+                                          ''),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize: 11.sp,
                                           color: Colors.blue),
                                     ),
                                     TextSpan(
-                                      text: widget
+                                      text: getWithoutMentionedNamae(widget
                                               .comment
                                               .replies?[subCommentIndex]
                                               .content ??
-                                          '',
+                                          ''),
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 11.sp,

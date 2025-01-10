@@ -119,8 +119,7 @@ class HomeController extends GetxController {
 
   FocusNode commentFocusNode = FocusNode();
   focusOnReplyComment(String auther) {
-    commentController.text =
-        "@" + (Get.find<SpHelper>().getUser()?.userInfo?.username ?? '') + ' ';
+    commentController.text = "@" + auther + ' ';
     commentFocusNode.requestFocus();
   }
 
@@ -134,8 +133,7 @@ class HomeController extends GetxController {
       Comment commentModel = await apiRepository.commentComment(
           postId: postId,
           commentId: commentId,
-          comment: commentController.text
-              .substring(commentController.text.indexOf(" ")));
+          comment: commentController.text);
 
       posts[index].comments[commentIndex].replies?.add(commentModel);
       commentController.clear();
