@@ -502,7 +502,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                                                   .comment
                                                   .replies?[subCommentIndex]
                                                   .author ??
-                                              ''),
+                                              '') +
+                                          " ",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize: 11.sp,

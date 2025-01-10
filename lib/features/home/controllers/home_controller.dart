@@ -134,8 +134,9 @@ class HomeController extends GetxController {
       Comment commentModel = await apiRepository.commentComment(
           postId: postId,
           commentId: commentId,
-          comment: commentController.text);
-      log(commentIndex.toString());
+          comment: commentController.text
+              .substring(commentController.text.indexOf(" ")));
+
       posts[index].comments[commentIndex].replies?.add(commentModel);
       commentController.clear();
       update();
