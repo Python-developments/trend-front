@@ -54,8 +54,9 @@ class ActivitiesPost extends StatelessWidget {
                   height: 13.h,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
+                  onTap: () async {
+                    Get.find<HomeController>().addLestnerOnCommentController();
+                    await showModalBottomSheet(
                       context: context,
                       isScrollControlled:
                           true, // Allows the bottom sheet to adjust with the keyboard
@@ -72,6 +73,7 @@ class ActivitiesPost extends StatelessWidget {
                         );
                       },
                     );
+                    Get.find<HomeController>().disploseListener();
                   },
                   child: Text(
                     " ${postModel.commentsCount == 0 ? '' : postModel.commentsCount}${postModel.commentsCount <= 1 ? ' comment' : ' comments'}",

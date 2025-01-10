@@ -12,6 +12,21 @@ class HomeController extends GetxController {
   HomeController(this.apiRepository);
 
   final TextEditingController commentController = TextEditingController();
+  RxBool emptyComment = true.obs;
+  addLestnerOnCommentController() {
+    commentController.addListener(() {
+      log("message");
+      if (commentController.text.trim().isEmpty) {
+        emptyComment.value = true;
+      } else {
+        emptyComment.value = false;
+      }
+    });
+  }
+
+  disploseListener() {
+    commentController.dispose();
+  }
 
   List<Post> posts = [];
   addNewPost(Post post) {
