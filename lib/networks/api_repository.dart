@@ -139,6 +139,12 @@ class ApiRepository {
     return GetAllPostsResponse.fromJson(response.data);
   }
 
+  Future<GetAllPostsResponse> getAllPosts([int page = 1]) async {
+    Response response = await dio.get(ApiEndPoints.allPostsWithoutPagination);
+    log(response.data.toString());
+    return GetAllPostsResponse.fromJson(response.data);
+  }
+
   Future<Post> createPost(String content, String userName, double height,
       double width, MultipartFile file) async {
     Response response = await dio.post(ApiEndPoints.createPost,

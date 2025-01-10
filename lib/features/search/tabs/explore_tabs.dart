@@ -13,7 +13,7 @@ class ExploreTagsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return GetBuilder<ExploreController>(
-        init: ExploreController(),
+        init: ExploreController(Get.find()),
         builder: (controller) {
           return Column(
             children: [

@@ -15,95 +15,105 @@ class ActivitiesPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // Like Button
-            GestureDetector(
-              onTap: () {
-                Get.find<HomeController>().likePost(index);
-              },
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    (postModel.likedByMe ?? false)
-                        ? 'assets/icons/like_fill.svg'
-                        : 'assets/icons/like.svg',
-                    color: (postModel.likedByMe ?? false)
-                        ? Colors.red
-                        : Colors.black,
-                    height: 13.h,
-                  ),
-                  Text(
-                    " ${postModel.likesCount == 0 ? '' : postModel.likesCount}${postModel.likesCount <= 1 ? ' like' : ' likes'}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Comment Button
-            Row(
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/comment.svg',
-                  color: Colors.black,
-                  height: 13.h,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled:
-                          true, // Allows the bottom sheet to adjust with the keyboard
-                      builder: (BuildContext context) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context)
-                                .viewInsets
-                                .bottom, // Adjust for keyboard
-                          ),
-                          child: CommentSheet(
-                            index: index,
-                          ),
-                        );
-                      },
-                    );
-                    Get.find<HomeController>().commentController.clear();
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              // Like Button
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.find<HomeController>().likePost(index);
                   },
-                  child: Text(
-                    " ${postModel.commentsCount == 0 ? '' : postModel.commentsCount}${postModel.commentsCount <= 1 ? ' comment' : ' comments'}",
-                    style: TextStyle(
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        (postModel.likedByMe ?? false)
+                            ? 'assets/icons/like_fill.svg'
+                            : 'assets/icons/like.svg',
+                        color: (postModel.likedByMe ?? false)
+                            ? Colors.red
+                            : Colors.black,
+                        height: 13.h,
+                      ),
+                      Text(
+                        " ${postModel.likesCount == 0 ? '' : postModel.likesCount}${postModel.likesCount <= 1 ? ' like' : ' likes'}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Comment Button
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/comment.svg',
                       color: Colors.black,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w600,
+                      height: 13.h,
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () async {
+                        await showModalBottomSheet(
+                          context: context,
+                          isScrollControlled:
+                              true, // Allows the bottom sheet to adjust with the keyboard
+                          builder: (BuildContext context) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context)
+                                    .viewInsets
+                                    .bottom, // Adjust for keyboard
+                              ),
+                              child: CommentSheet(
+                                index: index,
+                              ),
+                            );
+                          },
+                        );
+                        Get.find<HomeController>().commentController.clear();
+                      },
+                      child: Text(
+                        " ${postModel.commentsCount == 0 ? '' : postModel.commentsCount}${postModel.commentsCount <= 1 ? ' comment' : ' comments'}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            // Share Button
-            Row(
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/share.svg',
-                  color: Colors.black,
-                  height: 12.h,
+              ),
+              // Share Button
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/share.svg',
+                      color: Colors.black,
+                      height: 12.h,
+                    ),
+                    Text(
+                      ' share',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  ' share',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 10.h,

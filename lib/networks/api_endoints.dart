@@ -11,6 +11,8 @@ class ApiEndPoints {
   ////////////////////////////////////////////////////////////////////
   static const String postsPrefix = "/posts/";
   static const String allPosts = "/posts/all-posts/";
+  static const String allPostsWithoutPagination =
+      "/posts/all-posts-nopagination/";
   static const String createPost = "${postsPrefix}create/";
   static String commentPost(int id) => "${postsPrefix}$id/comments/";
   static String getPost(int id) => "${postsPrefix}$id/";

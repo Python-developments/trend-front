@@ -33,22 +33,17 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
                   appBar: AppBar(
                     backgroundColor: Colors.white,
                     automaticallyImplyLeading: false,
-                    title: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 20.sp,
-                          ),
-                          Text(
-                            "Add a new post",
-                            style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          width: 20.sp,
+                        ),
+                        Text(
+                          "Add a new post",
+                          style: TextStyle(
+                              fontSize: 16.sp, fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
                   ),
                   body: SingleChildScrollView(

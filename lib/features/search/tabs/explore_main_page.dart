@@ -11,19 +11,20 @@ class ExploreMainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return GetBuilder<ExploreController>(
-        init: ExploreController(),
+        init: ExploreController(Get.find()),
         builder: (controller) {
-          return PageView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              controller: controller.pageController,
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return [
-                  ExploreTagsTab(),
-                  TrendingTabs(),
-                  LocationsPosts()
-                ][index];
-              });
+          return ExploreTagsTab();
+          //  PageView.builder(
+          //     physics: NeverScrollableScrollPhysics(),
+          //     controller: controller.pageController,
+          //     itemCount: 3,
+          //     itemBuilder: (context, index) {
+          //       return [
+          //         ExploreTagsTab(),
+          //         TrendingTabs(),
+          //         LocationsPosts()
+          //       ][index];
+          //     });
         });
   }
 }

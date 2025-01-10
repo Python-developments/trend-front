@@ -575,7 +575,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                   width: 12.sp,
                                 ),
                                 Text(
-                                  " ${widget.comment.replies?[subCommentIndex].likesCount == 0 ? '' : widget.comment.replies?[subCommentIndex].likesCount}",
+                                  "${widget.comment.replies?[subCommentIndex].likesCount == 0 ? '' : widget.comment.replies?[subCommentIndex].likesCount}",
                                   style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 10.sp,
