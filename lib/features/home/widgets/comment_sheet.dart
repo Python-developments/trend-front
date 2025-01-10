@@ -330,16 +330,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            timeAgo,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
                           GestureDetector(
                             onTap: () {
                               widget.function(widget.commentIndex);
@@ -353,7 +346,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 12.sp)),
+                                    fontSize: 10.5.sp)),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -372,10 +365,11 @@ class _CommentWidgetState extends State<CommentWidget> {
                                       ? Colors.red
                                       : Colors.grey,
                                   height: 10.h,
-                                  // Add extra thickness if the color is grey
                                 ),
                                 SizedBox(
-                                  width: 4,
+                                  width: (widget.comment.likedByMe ?? false)
+                                      ? 4
+                                      : 10,
                                 ),
                                 Text(
                                   "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
