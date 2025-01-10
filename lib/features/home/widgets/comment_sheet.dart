@@ -306,44 +306,14 @@ class _CommentWidgetState extends State<CommentWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.comment.author ?? '',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
                       Row(
                         children: [
                           Text(
-                            widget.comment.content ?? '',
+                            widget.comment.author ?? '',
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11.sp,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              widget.function(widget.commentIndex);
-                              Get.find<HomeController>().focusOnReplyComment(
-                                  Get.find<HomeController>()
-                                          .posts[widget.postIndex]
-                                          .author ??
-                                      '');
-                            },
-                            child: Text("Reply",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 10.sp)),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -377,6 +347,40 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 ),
                               ],
                             ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            widget.comment.content ?? '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              widget.function(widget.commentIndex);
+                              Get.find<HomeController>().focusOnReplyComment(
+                                  Get.find<HomeController>()
+                                          .posts[widget.postIndex]
+                                          .author ??
+                                      '');
+                            },
+                            child: Text("Reply",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 10.sp)),
                           ),
                         ],
                       ),
