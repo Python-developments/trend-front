@@ -119,7 +119,8 @@ class HomeController extends GetxController {
 
   FocusNode commentFocusNode = FocusNode();
   focusOnReplyComment(String auther) {
-    commentController.text = "@" + auther + ' ';
+    commentController.text =
+        "@" + (Get.find<SpHelper>().getUser()?.userInfo?.username ?? '') + ' ';
     commentFocusNode.requestFocus();
   }
 
