@@ -10,6 +10,10 @@ import 'package:trend/utils/sharedprefrences_helper.dart';
 class HomeController extends GetxController {
   ApiRepository apiRepository;
   HomeController(this.apiRepository);
+  int commentIndex = -1;
+  setCommentIndex(int commentIndex) {
+    this.commentIndex = commentIndex;
+  }
 
   final TextEditingController commentController = TextEditingController();
 
@@ -122,7 +126,7 @@ class HomeController extends GetxController {
     commentFocusNode.requestFocus();
   }
 
-  addCommentOnComments(int index, int commentIndex) async {
+  addCommentOnComments(int index) async {
     if (commentController.text.trim() != "") {
       Post post = posts[index];
       int postId = post.id ?? 0;

@@ -12,11 +12,6 @@ class CommentSheet extends StatelessWidget {
   final int index;
   CommentSheet({super.key, required this.index});
 
-  int commentIndex = -1;
-  setCommentIndex(int commentIndex) {
-    this.commentIndex = commentIndex;
-  }
-
   OverlayEntry? _overlayEntry;
 
   void _showMenu(BuildContext context, Offset position, VoidCallback onDelete) {
@@ -121,8 +116,7 @@ class CommentSheet extends StatelessWidget {
                         });
                       }
                     },
-                    child: CommentWidget(
-                        comment, index, commentsIndex, setCommentIndex),
+                    child: CommentWidget(comment, index, commentsIndex),
                   );
                 },
               ),
@@ -158,8 +152,7 @@ class CommentSheet extends StatelessWidget {
                           ),
                         ),
                         // height: 37.h,
-                        child: CommentTextfield(
-                            commentIndex, index, setCommentIndex)))
+                        child: CommentTextfield(index)))
 
                 // Send Button
               ],
@@ -172,10 +165,9 @@ class CommentSheet extends StatelessWidget {
 }
 
 class CommentTextfield extends StatefulWidget {
-  int commentIndex;
   int index;
-  Function setCommentIndex;
-  CommentTextfield(this.commentIndex, this.index, this.setCommentIndex);
+
+  CommentTextfield(this.index);
 
   @override
   State<CommentTextfield> createState() => _CommentTextfieldState();
@@ -217,13 +209,13 @@ class _CommentTextfieldState extends State<CommentTextfield> {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    if (widget.commentIndex != -1) {
-                      Get.find<HomeController>().addCommentOnComments(
-                          widget.index, widget.commentIndex);
+                    if (Get.find<HomeController>().commentIndex != -1) {
+                      Get.find<HomeController>()
+                          .addCommentOnComments(widget.index);
                     } else {
                       Get.find<HomeController>().addComment(widget.index);
                     }
-                    widget.setCommentIndex(-1);
+                    Get.find<HomeController>().setCommentIndex(-1);
                   },
                   icon: SvgPicture.asset(
                     'assets/icons/arrow-up-send.svg',
@@ -268,11 +260,10 @@ class _CommentTextfieldState extends State<CommentTextfield> {
 }
 
 class CommentWidget extends StatefulWidget {
-  final Function function;
   final Comment comment;
   final int postIndex;
   final int commentIndex;
-  CommentWidget(this.comment, this.postIndex, this.commentIndex, this.function);
+  CommentWidget(this.comment, this.postIndex, this.commentIndex);
 
   @override
   State<CommentWidget> createState() => _CommentWidgetState();
@@ -362,7 +353,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              widget.function(widget.commentIndex);
+                              Get.find<HomeController>()
+                                  .setCommentIndex(widget.commentIndex);
                               Get.find<HomeController>().focusOnReplyComment(
                                   Get.find<HomeController>()
                                           .posts[widget.postIndex]
