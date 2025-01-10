@@ -10,6 +10,7 @@ class ApiEndPoints {
   static const String confirmResetPassword = "/auth/reset-password-confirm/";
   ////////////////////////////////////////////////////////////////////
   static const String postsPrefix = "/posts/";
+  static const String allPosts = "/posts/all-posts/";
   static const String createPost = "${postsPrefix}create/";
   static String commentPost(int id) => "${postsPrefix}$id/comments/";
   static String getPost(int id) => "${postsPrefix}$id/";

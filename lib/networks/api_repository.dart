@@ -133,8 +133,8 @@ class ApiRepository {
 
 //////////////////////////////////////////////////////////////////
   Future<GetAllPostsResponse> getPosts([int page = 1]) async {
-    Response response = await dio
-        .get(ApiEndPoints.postsPrefix, queryParameters: {"page": page});
+    Response response =
+        await dio.get(ApiEndPoints.allPosts, queryParameters: {"page": page});
     log(response.data.toString());
     return GetAllPostsResponse.fromJson(response.data);
   }

@@ -282,7 +282,7 @@ class _CommentWidgetState extends State<CommentWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          Container(
             padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 16.w),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,51 +315,14 @@ class _CommentWidgetState extends State<CommentWidget> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              Get.find<HomeController>().likeSubComment(
-                                  widget.postIndex, widget.commentIndex);
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  (widget.comment.likedByMe ?? false)
-                                      ? 'assets/icons/like_fill.svg'
-                                      : 'assets/icons/like.svg',
-                                  color: (widget.comment.likedByMe ?? false)
-                                      ? Colors.red
-                                      : Colors.grey,
-                                  height: 10.h,
-                                ),
-                                SizedBox(
-                                  width: (widget.comment.likedByMe ?? false)
-                                      ? 4
-                                      : 10,
-                                ),
-                                Text(
-                                  "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            widget.comment.content ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11.sp,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        widget.comment.content ?? '',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 11.sp,
+                        ),
                       ),
                       SizedBox(
                         height: 2,
@@ -383,6 +346,37 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     fontSize: 10.sp)),
                           ),
                         ],
+                      ),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Get.find<HomeController>()
+                        .likeSubComment(widget.postIndex, widget.commentIndex);
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        (widget.comment.likedByMe ?? false)
+                            ? 'assets/icons/like_fill.svg'
+                            : 'assets/icons/like.svg',
+                        color: (widget.comment.likedByMe ?? false)
+                            ? Colors.red
+                            : Colors.grey,
+                        height: 10.h,
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        "${widget.comment.likesCount == 0 ? '' : widget.comment.likesCount}",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
