@@ -142,17 +142,7 @@ class CommentSheet extends StatelessWidget {
 
                 // Input field
 
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 234, 234, 234),
-                            width: 1.5,
-                          ),
-                        ),
-                        // height: 37.h,
-                        child: CommentTextfield(index)))
+                Expanded(child: CommentTextfield(index))
 
                 // Send Button
               ],
@@ -165,7 +155,7 @@ class CommentSheet extends StatelessWidget {
 }
 
 class CommentTextfield extends StatefulWidget {
-  int index;
+  final int index;
 
   CommentTextfield(this.index);
 
@@ -175,27 +165,22 @@ class CommentTextfield extends StatefulWidget {
 
 class _CommentTextfieldState extends State<CommentTextfield> {
   bool emptyText = true;
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return TextField(
       onChanged: (x) {
-        if (x.trim().isEmpty) {
-          emptyText = true;
-          setState(() {});
-        } else {
-          emptyText = false;
-          setState(() {});
-        }
+        setState(() {
+          emptyText = x.trim().isEmpty;
+        });
       },
       focusNode: Get.find<HomeController>().commentFocusNode,
       controller: Get.find<HomeController>().commentController,
       textAlignVertical: TextAlignVertical.center, // Align text vertically
-      cursorColor: Colors.lightGreen, // Light green cursor color
+      cursorColor: const Color.fromARGB(255, 54, 60, 244), // Red cursor color
       style: TextStyle(
         fontSize: 12.sp,
       ),
-      // maxLines: 1, // Restrict to a single line
       decoration: InputDecoration(
         suffixIcon: emptyText
             ? SizedBox()
@@ -204,7 +189,7 @@ class _CommentTextfieldState extends State<CommentTextfield> {
                 width: 33.w,
                 height: 30.h,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: const Color.fromARGB(255, 0, 0, 0),
                   borderRadius: BorderRadius.circular(50.h),
                 ),
                 child: IconButton(
@@ -224,7 +209,7 @@ class _CommentTextfieldState extends State<CommentTextfield> {
                   ),
                 ),
               ),
-        hintText: "add comment ...",
+        hintText: " add comment ...",
         isDense: true,
         contentPadding: EdgeInsets.symmetric(
           vertical: 10,
@@ -233,27 +218,38 @@ class _CommentTextfieldState extends State<CommentTextfield> {
         hintStyle: TextStyle(
           color: Colors.grey,
           fontSize: 12.sp,
+          fontWeight: FontWeight.bold,
         ),
         fillColor: Colors.white,
         filled: true,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.r),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.5), // Gray border color
-              width: 0.4,
-            )),
+
+        // Default border (when not focused)
+        // border: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(20.r),
+        //   borderSide: BorderSide(
+        //     color: const Color.fromARGB(255, 50, 178, 112), // Always red
+        //     width: 0.5,
+        //   ),
+        // ),
+
+        // Border when enabled (but not focused)
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.r),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.5), // Gray border color
-              width: 0.4,
-            )),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.r),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.5), // Gray border color
-              width: 0.4,
-            )),
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(
+            color: const Color.fromARGB(255, 195, 195, 195), // Always red
+            width: 0.4,
+          ),
+        ),
+
+        // Border when focused
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(
+            color: const Color.fromARGB(
+                255, 195, 195, 195), // Always red // Always red
+            width: 0.4,
+          ),
+        ),
       ),
     );
   }

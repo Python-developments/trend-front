@@ -9,7 +9,7 @@ import 'package:trend/injection_container.dart';
 import 'package:trend/utils/routes.dart';
 import 'package:trend/utils/theme/dark_theme.dart';
 import 'package:trend/utils/theme/light_theme.dart';
-import 'package:trend/utils/theme/theme_controller.dart'; // Import your custom routes
+import 'package:trend/utils/theme/theme_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
